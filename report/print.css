@@ -1,0 +1,60 @@
+/* Print stylesheet for the RCR report (A4, wkhtmltopdf) */
+@page {
+  size: A4;
+  margin: 13mm 13mm 14mm 13mm;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "DejaVu Sans", Arial, sans-serif;
+  font-size: 9.7pt;
+  line-height: 1.4;
+  color: #111;
+  max-width: 100%;
+  text-align: justify;
+}
+header#title-block-header {
+  border-bottom: 2.2pt solid #1a5276;
+  margin-bottom: 5pt;
+  padding-bottom: 3pt;
+  text-align: center;
+}
+h1.title {
+  font-size: 15.5pt; color: #1a5276; margin: 0 0 1pt 0; line-height: 1.2;
+}
+p.subtitle { font-size: 10pt; color: #333; margin: 0; font-style: italic; }
+p.author  { font-size: 8.5pt; color: #444; margin: 1pt 0 0 0; }
+p.date    { display: none; }
+h1 {
+  font-size: 11.8pt; color: #1a5276;
+  margin: 9pt 0 3.5pt 0; padding-bottom: 1pt;
+  border-bottom: 0.9pt solid #aed6f1;
+  page-break-after: avoid;
+}
+h2 {
+  font-size: 10.3pt; color: #21618c; margin: 5pt 0 2pt 0;
+  page-break-after: avoid;
+}
+p { margin: 0 0 4.5pt 0; }
+ul, ol { margin: 0 0 3pt 0; padding-left: 13pt; }
+li { margin-bottom: 1pt; }
+strong { color: #000; }
+code {
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 8.5pt; background: #f4f6f7; padding: 0 1pt;
+}
+table {
+  border-collapse: collapse; width: 100%;
+  margin: 2.5pt 0 4pt 0; page-break-inside: avoid;
+  font-size: 8.3pt; line-height: 1.28;
+}
+th {
+  background: #1a5276; color: #fff; padding: 1.6pt 3pt;
+  border: 0.5pt solid #1a5276; text-align: left; font-size: 8.2pt;
+}
+td { padding: 1.4pt 3pt; border: 0.5pt solid #aab7b8; vertical-align: top; }
+tr:nth-child(even) td { background: #f8f9f9; }
+table code { font-size: 7.8pt; background: none; padding: 0; }
+div.fig { text-align: center; margin: 3pt 0 4pt 0; page-break-inside: avoid; }
+div.fig img { width: 88%; }
+div.fig .cap { font-size: 8.2pt; color: #555; font-style: italic; margin-top: 1pt; }
+hr { display: none; }

@@ -1,0 +1,603 @@
+RCR UNIVERSITY ORIENTATION SYSTEM - FULL RUN
+Classical logic / Default logic / Fuzzy logic - University of Guelma, 2026-2027
+
+====================================================================================================
+STEP 1 - KNOWLEDGE MODELING: 3 majors, 10 profiles, shared fact vocabulary
+====================================================================================================
+  * AI   Artificial Intelligence
+        - High grade in Algorithmics (>= 14/20) and in Mathematics (>= 14/20)
+        - Declared interest in AI (>= 7/10) OR strong problem-solving skill (>= 7/10) for recommendation
+  * SE   Software Engineering
+        - High grade in Programming (>= 14/20) and good general average (>= 12/20)
+        - Declared interest in software development (>= 7/10) OR strong coding practice (>= 7/10) for recommendation
+  * CYB  Cybersecurity
+        - High grade in Networks & Systems (>= 14/20) and good general average (>= 12/20)
+        - Declared interest in security (>= 7/10) OR strong problem-solving skill (>= 7/10) for recommendation
+
+  Thresholds used to ground predicates into propositions:
+        high_grade           = 14
+        good_average         = 12
+        low_average          = 10
+        low_math             = 9
+        strong_skill         = 7
+        interest_positive    = 7
+        interest_negative    = 3
+        tie_min_interest     = 7
+
+  The 10 student profiles and their derived fact bases W:
+
+  S01 Amina Belkacem   | math=  17 algo=  18 prog=  15 net=  12 | avg= 15.5 | ps=9 code=6 | interests: ai=9 se=5 cyber=3
+        W = { dislikes_cyber, good_average, high_algorithmics, high_math, high_programming, interests_ai, strong_problem_solving }
+
+  S02 Yacine Haddad    | math=  12 algo=  13 prog=  17 net=  10 | avg= 13.0 | ps=7 code=9 | interests: ai=5 se=9 cyber=4
+        W = { good_average, high_programming, interests_se, strong_coding, strong_problem_solving }
+
+  S03 Meriem Saadi     | math=  11 algo=  10 prog=  12 net=  16 | avg=12.25 | ps=7 code=5 | interests: ai=2 se=3 cyber=9
+        W = { dislikes_ai, dislikes_se, good_average, high_networks, interests_cyber, strong_problem_solving }
+
+  S04 Sofiane Meziane  | math=   9 algo=   8 prog=  10 net=   9 | avg=  9.0 | ps=4 code=4 | interests: ai=6 se=5 cyber=5
+        W = { low_average, low_math }
+
+  S05 Lina Zerouki     | math=  15 algo=  16 prog=  14 net=  11 | avg= 14.0 | ps=6 code=5 | interests: ?
+        W = { good_average, high_algorithmics, high_math, high_programming, interest_unknown_ai, interest_unknown_cyber, interest_unknown_se }
+
+  S06 Karim Boudjema   | math=  16 algo=  15 prog=  14 net=  10 | avg=13.75 | ps=6 code=7 | interests: ai=1 se=8 cyber=2
+        W = { dislikes_ai, dislikes_cyber, good_average, high_algorithmics, high_math, high_programming, interests_se, strong_coding }
+
+  S07 Ines Larbi       | math=  15 algo=  17 prog=  15 net=   9 | avg= 14.0 | ps=8 code=6 | interests: ?
+        W = { good_average, high_algorithmics, high_math, high_programming, interest_unknown_ai, interest_unknown_cyber, interest_unknown_se, strong_problem_solving }
+
+  S08 Omar Cherif      | math=  11 algo=  12 prog=  13 net=  17 | avg=13.25 | ps=7 code=6 | interests: ai=3 se=4 cyber=8
+        W = { dislikes_ai, good_average, high_networks, interests_cyber, strong_problem_solving }
+
+  S09 Nadia Slimani    | math=  13 algo=  14 prog=  14 net=  13 | avg= 13.5 | ps=6 code=6 | interests: ai=6 se=6 cyber=6
+        W = { good_average, high_algorithmics, high_programming }
+
+  S10 Riad Amrani      | math=  14 algo=  14 prog=  15 net=  15 | avg= 14.5 | ps=8 code=8 | interests: ai=5 se=7 cyber=7
+        W = { good_average, high_algorithmics, high_math, high_networks, high_programming, interests_cyber, interests_se, strong_coding, strong_problem_solving, tied_se_cyber }
+
+====================================================================================================
+STEP 2 - CLASSICAL LOGIC (Chapitre I-A): forward chaining, Modus Ponens, CWA
+====================================================================================================
+  Rule base (Horn clauses):
+    C1   EligibleAI(s) <- HighAlgo(s) AND HighMath(s)
+    C2   EligibleSE(s) <- HighProg(s) AND GoodAvg(s)
+    C3   EligibleCYB(s) <- HighNet(s) AND GoodAvg(s)
+    C4   RecAI(s) <- EligibleAI(s) AND InterestedAI(s)
+    C5   RecAI(s) <- EligibleAI(s) AND StrongPS(s)
+    C6   RecSE(s) <- EligibleSE(s) AND InterestedSE(s)
+    C7   RecSE(s) <- EligibleSE(s) AND StrongCoding(s)
+    C8   RecCYB(s) <- EligibleCYB(s) AND InterestedCYB(s)
+    C9   RecCYB(s) <- EligibleCYB(s) AND StrongPS(s)
+    C10  Remediation(s) <- LowAvg(s)
+
+  S01 Amina Belkacem
+    derived by forward chaining : eligible_ai, eligible_se, recommended_ai
+    ELIGIBLE    : AI, SE
+    RECOMMENDED : AI
+      firing: [C1] high_algorithmics AND high_math -> eligible_ai  (pass 1)
+      firing: [C2] high_programming AND good_average -> eligible_se  (pass 1)
+      firing: [C4] eligible_ai AND interests_ai -> recommended_ai  (pass 1)
+    justifications (explanation trees):
+      recommended_ai   [rule C4: eligible_ai AND interests_ai -> recommended_ai]
+          eligible_ai   [rule C1: high_algorithmics AND high_math -> eligible_ai]
+              high_algorithmics   [FACT from the student profile]
+              high_math   [FACT from the student profile]
+          interests_ai   [FACT from the student profile]
+      recommended_se   [NOT DERIVED - false under the CWA]
+          rule C6 could derive it, but: [eligible_se OK, interests_se MISSING]
+          rule C7 could derive it, but: [eligible_se OK, strong_coding MISSING]
+      recommended_cyber   [NOT DERIVED - false under the CWA]
+          rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]
+          rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving OK]
+
+  S02 Yacine Haddad
+    derived by forward chaining : eligible_se, recommended_se
+    ELIGIBLE    : SE
+    RECOMMENDED : SE
+      firing: [C2] high_programming AND good_average -> eligible_se  (pass 1)
+      firing: [C6] eligible_se AND interests_se -> recommended_se  (pass 1)
+    justifications (explanation trees):
+      recommended_ai   [NOT DERIVED - false under the CWA]
+          rule C4 could derive it, but: [eligible_ai MISSING, interests_ai MISSING]
+          rule C5 could derive it, but: [eligible_ai MISSING, strong_problem_solving OK]
+      recommended_se   [rule C6: eligible_se AND interests_se -> recommended_se]
+          eligible_se   [rule C2: high_programming AND good_average -> eligible_se]
+              high_programming   [FACT from the student profile]
+              good_average   [FACT from the student profile]
+          interests_se   [FACT from the student profile]
+      recommended_cyber   [NOT DERIVED - false under the CWA]
+          rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]
+          rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving OK]
+
+  S03 Meriem Saadi
+    derived by forward chaining : eligible_cyber, recommended_cyber
+    ELIGIBLE    : CYB
+    RECOMMENDED : CYB
+      firing: [C3] high_networks AND good_average -> eligible_cyber  (pass 1)
+      firing: [C8] eligible_cyber AND interests_cyber -> recommended_cyber  (pass 1)
+    justifications (explanation trees):
+      recommended_ai   [NOT DERIVED - false under the CWA]
+          rule C4 could derive it, but: [eligible_ai MISSING, interests_ai MISSING]
+          rule C5 could derive it, but: [eligible_ai MISSING, strong_problem_solving OK]
+      recommended_se   [NOT DERIVED - false under the CWA]
+          rule C6 could derive it, but: [eligible_se MISSING, interests_se MISSING]
+          rule C7 could derive it, but: [eligible_se MISSING, strong_coding MISSING]
+      recommended_cyber   [rule C8: eligible_cyber AND interests_cyber -> recommended_cyber]
+          eligible_cyber   [rule C3: high_networks AND good_average -> eligible_cyber]
+              high_networks   [FACT from the student profile]
+              good_average   [FACT from the student profile]
+          interests_cyber   [FACT from the student profile]
+
+  S04 Sofiane Meziane
+    derived by forward chaining : needs_remediation
+    ELIGIBLE    : -
+    RECOMMENDED : -
+    OTHER       : needs_remediation
+      firing: [C10] low_average -> needs_remediation  (pass 1)
+    justifications (explanation trees):
+      recommended_ai   [NOT DERIVED - false under the CWA]
+          rule C4 could derive it, but: [eligible_ai MISSING, interests_ai MISSING]
+          rule C5 could derive it, but: [eligible_ai MISSING, strong_problem_solving MISSING]
+      recommended_se   [NOT DERIVED - false under the CWA]
+          rule C6 could derive it, but: [eligible_se MISSING, interests_se MISSING]
+          rule C7 could derive it, but: [eligible_se MISSING, strong_coding MISSING]
+      recommended_cyber   [NOT DERIVED - false under the CWA]
+          rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]
+          rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving MISSING]
+
+  S05 Lina Zerouki
+    derived by forward chaining : eligible_ai, eligible_se
+    ELIGIBLE    : AI, SE
+    RECOMMENDED : -
+      firing: [C1] high_algorithmics AND high_math -> eligible_ai  (pass 1)
+      firing: [C2] high_programming AND good_average -> eligible_se  (pass 1)
+    justifications (explanation trees):
+      recommended_ai   [NOT DERIVED - false under the CWA]
+          rule C4 could derive it, but: [eligible_ai OK, interests_ai MISSING]
+          rule C5 could derive it, but: [eligible_ai OK, strong_problem_solving MISSING]
+      recommended_se   [NOT DERIVED - false under the CWA]
+          rule C6 could derive it, but: [eligible_se OK, interests_se MISSING]
+          rule C7 could derive it, but: [eligible_se OK, strong_coding MISSING]
+      recommended_cyber   [NOT DERIVED - false under the CWA]
+          rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]
+          rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving MISSING]
+
+  S06 Karim Boudjema
+    derived by forward chaining : eligible_ai, eligible_se, recommended_se
+    ELIGIBLE    : AI, SE
+    RECOMMENDED : SE
+      firing: [C1] high_algorithmics AND high_math -> eligible_ai  (pass 1)
+      firing: [C2] high_programming AND good_average -> eligible_se  (pass 1)
+      firing: [C6] eligible_se AND interests_se -> recommended_se  (pass 1)
+    justifications (explanation trees):
+      recommended_ai   [NOT DERIVED - false under the CWA]
+          rule C4 could derive it, but: [eligible_ai OK, interests_ai MISSING]
+          rule C5 could derive it, but: [eligible_ai OK, strong_problem_solving MISSING]
+      recommended_se   [rule C6: eligible_se AND interests_se -> recommended_se]
+          eligible_se   [rule C2: high_programming AND good_average -> eligible_se]
+              high_programming   [FACT from the student profile]
+              good_average   [FACT from the student profile]
+          interests_se   [FACT from the student profile]
+      recommended_cyber   [NOT DERIVED - false under the CWA]
+          rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]
+          rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving MISSING]
+
+  S07 Ines Larbi
+    derived by forward chaining : eligible_ai, eligible_se, recommended_ai
+    ELIGIBLE    : AI, SE
+    RECOMMENDED : AI
+      firing: [C1] high_algorithmics AND high_math -> eligible_ai  (pass 1)
+      firing: [C2] high_programming AND good_average -> eligible_se  (pass 1)
+      firing: [C5] eligible_ai AND strong_problem_solving -> recommended_ai  (pass 1)
+    justifications (explanation trees):
+      recommended_ai   [rule C5: eligible_ai AND strong_problem_solving -> recommended_ai]
+          eligible_ai   [rule C1: high_algorithmics AND high_math -> eligible_ai]
+              high_algorithmics   [FACT from the student profile]
+              high_math   [FACT from the student profile]
+          strong_problem_solving   [FACT from the student profile]
+      recommended_se   [NOT DERIVED - false under the CWA]
+          rule C6 could derive it, but: [eligible_se OK, interests_se MISSING]
+          rule C7 could derive it, but: [eligible_se OK, strong_coding MISSING]
+      recommended_cyber   [NOT DERIVED - false under the CWA]
+          rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]
+          rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving OK]
+
+  S08 Omar Cherif
+    derived by forward chaining : eligible_cyber, recommended_cyber
+    ELIGIBLE    : CYB
+    RECOMMENDED : CYB
+      firing: [C3] high_networks AND good_average -> eligible_cyber  (pass 1)
+      firing: [C8] eligible_cyber AND interests_cyber -> recommended_cyber  (pass 1)
+    justifications (explanation trees):
+      recommended_ai   [NOT DERIVED - false under the CWA]
+          rule C4 could derive it, but: [eligible_ai MISSING, interests_ai MISSING]
+          rule C5 could derive it, but: [eligible_ai MISSING, strong_problem_solving OK]
+      recommended_se   [NOT DERIVED - false under the CWA]
+          rule C6 could derive it, but: [eligible_se MISSING, interests_se MISSING]
+          rule C7 could derive it, but: [eligible_se MISSING, strong_coding MISSING]
+      recommended_cyber   [rule C8: eligible_cyber AND interests_cyber -> recommended_cyber]
+          eligible_cyber   [rule C3: high_networks AND good_average -> eligible_cyber]
+              high_networks   [FACT from the student profile]
+              good_average   [FACT from the student profile]
+          interests_cyber   [FACT from the student profile]
+
+  S09 Nadia Slimani
+    derived by forward chaining : eligible_se
+    ELIGIBLE    : SE
+    RECOMMENDED : -
+      firing: [C2] high_programming AND good_average -> eligible_se  (pass 1)
+    justifications (explanation trees):
+      recommended_ai   [NOT DERIVED - false under the CWA]
+          rule C4 could derive it, but: [eligible_ai MISSING, interests_ai MISSING]
+          rule C5 could derive it, but: [eligible_ai MISSING, strong_problem_solving MISSING]
+      recommended_se   [NOT DERIVED - false under the CWA]
+          rule C6 could derive it, but: [eligible_se OK, interests_se MISSING]
+          rule C7 could derive it, but: [eligible_se OK, strong_coding MISSING]
+      recommended_cyber   [NOT DERIVED - false under the CWA]
+          rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]
+          rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving MISSING]
+
+  S10 Riad Amrani
+    derived by forward chaining : eligible_ai, eligible_cyber, eligible_se, recommended_ai, recommended_cyber, recommended_se
+    ELIGIBLE    : AI, CYB, SE
+    RECOMMENDED : AI, CYB, SE
+      firing: [C1] high_algorithmics AND high_math -> eligible_ai  (pass 1)
+      firing: [C2] high_programming AND good_average -> eligible_se  (pass 1)
+      firing: [C3] high_networks AND good_average -> eligible_cyber  (pass 1)
+      firing: [C5] eligible_ai AND strong_problem_solving -> recommended_ai  (pass 1)
+      firing: [C6] eligible_se AND interests_se -> recommended_se  (pass 1)
+      firing: [C8] eligible_cyber AND interests_cyber -> recommended_cyber  (pass 1)
+    justifications (explanation trees):
+      recommended_ai   [rule C5: eligible_ai AND strong_problem_solving -> recommended_ai]
+          eligible_ai   [rule C1: high_algorithmics AND high_math -> eligible_ai]
+              high_algorithmics   [FACT from the student profile]
+              high_math   [FACT from the student profile]
+          strong_problem_solving   [FACT from the student profile]
+      recommended_se   [rule C6: eligible_se AND interests_se -> recommended_se]
+          eligible_se   [rule C2: high_programming AND good_average -> eligible_se]
+              high_programming   [FACT from the student profile]
+              good_average   [FACT from the student profile]
+          interests_se   [FACT from the student profile]
+      recommended_cyber   [rule C8: eligible_cyber AND interests_cyber -> recommended_cyber]
+          eligible_cyber   [rule C3: high_networks AND good_average -> eligible_cyber]
+              high_networks   [FACT from the student profile]
+              good_average   [FACT from the student profile]
+          interests_cyber   [FACT from the student profile]
+
+====================================================================================================
+STEP 3 - DEFAULT LOGIC (Chapitre I-B.2): non-monotonic reasoning, extensions
+====================================================================================================
+  Default theory D (alpha : beta / gamma) + strict rules:
+    D1: high_algorithmics : ~dislikes_ai, ~low_math / suited_ai
+    D2: high_programming : ~dislikes_se / suited_se
+    D3: high_networks : ~dislikes_cyber / suited_cyber
+    D4a: interest_unknown_ai AND suited_ai : ~dislikes_ai / presumed_interest_ai AND recommended_ai
+    D4b: interest_unknown_se AND suited_se : ~dislikes_se / presumed_interest_se AND recommended_se
+    D4c: interest_unknown_cyber AND suited_cyber : ~dislikes_cyber / presumed_interest_cyber AND recommended_cyber
+    D5a: suited_cyber AND suited_se AND tied_se_cyber : ~oriented_se / oriented_cyber
+    D5b: suited_cyber AND suited_se AND tied_se_cyber : ~oriented_cyber / oriented_se
+    S1a: interests_ai AND suited_ai : - / recommended_ai
+    S1b: strong_problem_solving AND suited_ai : - / recommended_ai
+    S2a: interests_se AND suited_se : - / recommended_se
+    S2b: strong_coding AND suited_se : - / recommended_se
+    S3a: interests_cyber AND suited_cyber : - / recommended_cyber
+    S3b: strong_problem_solving AND suited_cyber : - / recommended_cyber
+    S4: low_average : - / needs_remediation
+
+  S01 Amina Belkacem  ->  1 extension(s), 23 processes explored
+    Extension E1: recommended_ai, suited_ai, suited_se
+      applied: D1, D2, S1a, S1b
+      support[recommended_ai] = ['S1a', 'S1b']
+      support[suited_ai] = ['D1']
+      support[suited_se] = ['D2']
+    => SUITED (all extensions): ['AI', 'SE']
+    => RECOMMENDED (all extensions): AI
+
+  S02 Yacine Haddad  ->  1 extension(s), 6 processes explored
+    Extension E1: recommended_se, suited_se
+      applied: D2, S2a, S2b
+      support[recommended_se] = ['S2a', 'S2b']
+      support[suited_se] = ['D2']
+    => SUITED (all extensions): ['SE']
+    => RECOMMENDED (all extensions): SE
+
+  S03 Meriem Saadi  ->  1 extension(s), 6 processes explored
+    Extension E1: recommended_cyber, suited_cyber
+      applied: D3, S3a, S3b
+      support[recommended_cyber] = ['S3a', 'S3b']
+      support[suited_cyber] = ['D3']
+    => SUITED (all extensions): ['CYB']
+    => RECOMMENDED (all extensions): CYB
+
+  S04 Sofiane Meziane  ->  1 extension(s), 2 processes explored
+    Extension E1: needs_remediation
+      applied: S4
+    => SUITED (all extensions): -
+    => RECOMMENDED (all extensions): -
+
+  S05 Lina Zerouki  ->  1 extension(s), 19 processes explored
+    Extension E1: presumed_interest_ai, presumed_interest_se, recommended_ai, recommended_se, suited_ai, suited_se
+      applied: D1, D2, D4a, D4b
+      support[recommended_ai] = ['D4a']
+      support[recommended_se] = ['D4b']
+      support[suited_ai] = ['D1']
+      support[suited_se] = ['D2']
+    => SUITED (all extensions): ['AI', 'SE']
+    => RECOMMENDED (all extensions): AI*, SE*   (* = rests only on a presumption, defeasible)
+
+  S06 Karim Boudjema  ->  1 extension(s), 6 processes explored
+    Extension E1: recommended_se, suited_se
+      applied: D2, S2a, S2b
+      support[recommended_se] = ['S2a', 'S2b']
+      support[suited_se] = ['D2']
+    => SUITED (all extensions): ['SE']
+    => RECOMMENDED (all extensions): SE
+
+  S07 Ines Larbi  ->  1 extension(s), 59 processes explored
+    Extension E1: presumed_interest_ai, presumed_interest_se, recommended_ai, recommended_se, suited_ai, suited_se
+      applied: D1, D2, D4a, D4b, S1b
+      support[recommended_ai] = ['D4a', 'S1b']
+      support[recommended_se] = ['D4b']
+      support[suited_ai] = ['D1']
+      support[suited_se] = ['D2']
+    => SUITED (all extensions): ['AI', 'SE']
+    => RECOMMENDED (all extensions): AI, SE*   (* = rests only on a presumption, defeasible)
+
+  S08 Omar Cherif  ->  1 extension(s), 6 processes explored
+    Extension E1: recommended_cyber, suited_cyber
+      applied: D3, S3a, S3b
+      support[recommended_cyber] = ['S3a', 'S3b']
+      support[suited_cyber] = ['D3']
+    => SUITED (all extensions): ['CYB']
+    => RECOMMENDED (all extensions): CYB
+
+  S09 Nadia Slimani  ->  1 extension(s), 5 processes explored
+    Extension E1: suited_ai, suited_se
+      applied: D1, D2
+      support[suited_ai] = ['D1']
+      support[suited_se] = ['D2']
+    => SUITED (all extensions): ['AI', 'SE']
+    => RECOMMENDED (all extensions): -
+
+  S10 Riad Amrani  ->  2 extension(s), 65335 processes explored
+    Extension E1: oriented_cyber, recommended_ai, recommended_cyber, recommended_se, suited_ai, suited_cyber, suited_se
+      applied: D1, D2, D3, D5a, S1b, S2a, S2b, S3a, S3b
+      support[oriented_cyber] = ['D5a']
+      support[recommended_ai] = ['S1b']
+      support[recommended_cyber] = ['S3a', 'S3b']
+      support[recommended_se] = ['S2a', 'S2b']
+      support[suited_ai] = ['D1']
+      support[suited_cyber] = ['D3']
+      support[suited_se] = ['D2']
+    Extension E2: oriented_se, recommended_ai, recommended_cyber, recommended_se, suited_ai, suited_cyber, suited_se
+      applied: D1, D2, D3, D5b, S1b, S2a, S2b, S3a, S3b
+      support[oriented_se] = ['D5b']
+      support[recommended_ai] = ['S1b']
+      support[recommended_cyber] = ['S3a', 'S3b']
+      support[recommended_se] = ['S2a', 'S2b']
+      support[suited_ai] = ['D1']
+      support[suited_cyber] = ['D3']
+      support[suited_se] = ['D2']
+    => SUITED (all extensions): ['AI', 'CYB', 'SE']
+    => RECOMMENDED (all extensions): AI, CYB, SE
+    => AMBIGUITY: orientation differs between extensions: ext1: ['oriented_cyber'] | ext2: ['oriented_se']
+
+====================================================================================================
+STEP 3bis - EXCEPTION & BELIEF REVISION DEMO (S07 Ines Larbi)
+====================================================================================================
+  Student: S07 Ines Larbi
+  W1 (before follow-up): good_average, high_algorithmics, high_math, high_programming, interest_unknown_ai, interest_unknown_cyber, interest_unknown_se, strong_problem_solving
+  W2 (after follow-up) : dislikes_ai, dislikes_cyber, good_average, high_algorithmics, high_math, high_programming, interests_se, strong_problem_solving
+  New facts in W2      : ['dislikes_ai', 'dislikes_cyber', 'interests_se']
+  Facts removed in W2  : ['interest_unknown_ai', 'interest_unknown_cyber', 'interest_unknown_se']
+
+  [DEFAULT LOGIC]
+    Phase 1: 1 conclusion set = presumed_interest_ai, presumed_interest_se, recommended_ai, recommended_se, suited_ai, suited_se
+      (applied: D1, D2, D4a, D4b, S1b)
+    Phase 2: 1 conclusion set = recommended_se, suited_se
+      (applied: D2, S2a)
+    RETRACTED conclusions : ['presumed_interest_ai', 'presumed_interest_se', 'recommended_ai', 'suited_ai']
+    ADDED conclusions     : (none)
+    KEPT but re-justified : recommended_se: support ['D4b'] -> ['S2a']
+    => Non-monotonicity proved: Cn(W1) is NOT a subset of Cn(W2);
+       the exception 'dislikes_ai' defeated default D1 and retracted recommended_ai.
+
+  [CLASSICAL LOGIC - contrast]
+    Phase 1 conclusions: ['eligible_ai', 'eligible_se', 'recommended_ai']
+    Phase 2 conclusions: ['eligible_ai', 'eligible_se', 'recommended_ai', 'recommended_se']
+    Monotonicity check: derived(W1) subset of derived(W2)? True  -> no conclusion is ever retracted
+    LIMITATION OBSERVED: classical logic STILL recommends AI although the
+    student has declared a strong dislike of AI (interest 2/10).
+
+  [FUZZY LOGIC - contrast]
+    AI  : phase 1 =  70.0%  ->  phase 2 =  37.4%   (no symbolic retraction, scores are simply re-evaluated)
+    SE  : phase 1 =  70.0%  ->  phase 2 =  73.2%   (no symbolic retraction, scores are simply re-evaluated)
+    CYB : phase 1 =  39.6%  ->  phase 2 =  23.2%   (no symbolic retraction, scores are simply re-evaluated)
+
+====================================================================================================
+STEP 4 - FUZZY LOGIC (Chapitre III): Mamdani inference, centroid defuzzification
+====================================================================================================
+  Linguistic variables and membership functions:
+    core_grade   on [0, 20] (grade/20)  ->  Low: trap[0, 0, 8, 12]; Medium: tri[8, 12, 16]; High: trap[12, 16, 20, 20]
+    skill_grade  on [0, 20] (grade/20)  ->  Low: trap[0, 0, 8, 12]; Medium: tri[8, 12, 16]; High: trap[12, 16, 20, 20]
+    interest     on [0, 10] (score/10)  ->  Low: trap[0, 0, 3, 5]; Medium: tri[3, 5, 7]; High: trap[5, 7, 10, 10]
+    suitability  on [0, 100] (%)  ->  Low: trap[0, 0, 30, 45]; Medium: tri[30, 45, 60]; High: tri[50, 70, 90]; VeryHigh: trap[75, 90, 100, 100]
+
+  Rule base (AND = min, aggregation = max):
+    FR1   IF Core is High AND Skill is High THEN Suitability is High
+    FR2   IF Core is High AND Interest is High THEN Suitability is High
+    FR3   IF Core is Medium AND Skill is Medium THEN Suitability is Medium
+    FR4   IF Skill is High AND Interest is Medium THEN Suitability is High (example given in the TP statement)
+    FR5   IF Core is Low THEN Suitability is Low
+    FR6   IF Skill is Low AND Interest is Low THEN Suitability is Low
+    FR7   IF Core is Medium AND Interest is High THEN Suitability is Medium
+    FR8   IF Core is High AND Skill is Low THEN Suitability is Medium
+    FR9   IF Core is Low AND Skill is High THEN Suitability is Low (talent cannot compensate a failing core subject)
+    FR10  IF Core is High AND Interest is Low THEN Suitability is Medium (good grades partly compensate low motivation)
+    FR11  IF Interest is Low AND Skill is High THEN Suitability is Low (without motivation, strong skills are not enough)
+    FR12  IF Core is Medium AND Skill is Low THEN Suitability is Low
+    FR13  IF Core is High AND Skill is High AND Interest is High THEN Suitability is VeryHigh (excellence on all three dimensions)
+
+  Input mapping per major:
+    AI  : core=math         skill=algorithmics  interest=ai
+    SE  : core=programming  skill=algorithmics  interest=se
+    CYB : core=networks     skill=programming   interest=cyber
+
+  Suitability scores (defuzzified by centroid, %):
+    Student                 AI %    SE %   CYB %   Ranking
+    S01 Amina Belkacem    79.5    70.0    23.2   AI(79.5%) > SE(70.0%) > CYB(23.2%)
+        fuzzy decision (threshold 60%): AI
+    S02 Yacine Haddad     54.5    73.2    41.4   SE(73.2%) > AI(54.5%) > CYB(41.4%)
+        fuzzy decision (threshold 60%): SE
+    S03 Meriem Saadi      28.1    28.1    70.0   CYB(70.0%) > AI(28.1%) > SE(28.1%)
+        fuzzy decision (threshold 60%): CYB
+    S04 Sofiane Meziane   23.2    20.6    23.2   AI(23.2%) > CYB(23.2%) > SE(20.6%)
+        fuzzy decision (threshold 60%): none (top score 23.2% < 60%)
+    S05 Lina Zerouki      70.0    70.0    48.9   AI(70.0%) > SE(70.0%) > CYB(48.9%)
+        note[AI]: interest (ai) imputed to 5.0 (neutral)
+        note[SE]: interest (se) imputed to 5.0 (neutral)
+        note[CYB]: interest (cyber) imputed to 5.0 (neutral)
+        fuzzy decision (threshold 60%): AI = SE (tie at 70.0%)
+    S06 Karim Boudjema    40.4    67.1    28.1   SE(67.1%) > AI(40.4%) > CYB(28.1%)
+        fuzzy decision (threshold 60%): SE
+    S07 Ines Larbi        70.0    70.0    39.6   AI(70.0%) > SE(70.0%) > CYB(39.6%)
+        note[AI]: interest (ai) imputed to 5.0 (neutral)
+        note[SE]: interest (se) imputed to 5.0 (neutral)
+        note[CYB]: interest (cyber) imputed to 5.0 (neutral)
+        fuzzy decision (threshold 60%): AI = SE (tie at 70.0%)
+    S08 Omar Cherif       34.4    45.0    73.2   CYB(73.2%) > SE(45.0%) > AI(34.4%)
+        fuzzy decision (threshold 60%): CYB
+    S09 Nadia Slimani     63.4    67.1    63.4   SE(67.1%) > AI(63.4%) > CYB(63.4%)
+        fuzzy decision (threshold 60%): SE
+    S10 Riad Amrani       59.5    70.8    73.2   CYB(73.2%) > SE(70.8%) > AI(59.5%)
+        fuzzy decision (threshold 60%): CYB
+
+  Detailed inference trace for S05 Lina Zerouki:
+    --- AI -> suitability 70.0% (High) ---
+      input core     = 15     [mu_Low=0.000, mu_Medium=0.250, mu_High=0.750]
+      input skill    = 16     [mu_Low=0.000, mu_Medium=0.000, mu_High=1.000]
+      input interest = 5.0    [mu_Low=0.000, mu_Medium=1.000, mu_High=0.000]
+      FR4   alpha=1.000 -> High   (min of skill=High(mu=1.000) , interest=Medium(mu=1.000))
+      FR1   alpha=0.750 -> High   (min of core=High(mu=0.750) , skill=High(mu=1.000))
+    --- SE -> suitability 70.0% (High) ---
+      input core     = 14     [mu_Low=0.000, mu_Medium=0.500, mu_High=0.500]
+      input skill    = 16     [mu_Low=0.000, mu_Medium=0.000, mu_High=1.000]
+      input interest = 5.0    [mu_Low=0.000, mu_Medium=1.000, mu_High=0.000]
+      FR4   alpha=1.000 -> High   (min of skill=High(mu=1.000) , interest=Medium(mu=1.000))
+      FR1   alpha=0.500 -> High   (min of core=High(mu=0.500) , skill=High(mu=1.000))
+    --- CYB -> suitability 48.9% (Medium) ---
+      input core     = 11     [mu_Low=0.250, mu_Medium=0.750, mu_High=0.000]
+      input skill    = 14     [mu_Low=0.000, mu_Medium=0.500, mu_High=0.500]
+      input interest = 5.0    [mu_Low=0.000, mu_Medium=1.000, mu_High=0.000]
+      FR3   alpha=0.500 -> Medium (min of core=Medium(mu=0.750) , skill=Medium(mu=0.500))
+      FR4   alpha=0.500 -> High   (min of skill=High(mu=0.500) , interest=Medium(mu=1.000))
+      FR5   alpha=0.250 -> Low    (min of core=Low(mu=0.250))
+      FR9   alpha=0.250 -> Low    (min of core=Low(mu=0.250) , skill=High(mu=0.500))
+
+  Detailed inference trace for S09 Nadia Slimani:
+    --- AI -> suitability 63.4% (Medium) ---
+      input core     = 13     [mu_Low=0.000, mu_Medium=0.750, mu_High=0.250]
+      input skill    = 14     [mu_Low=0.000, mu_Medium=0.500, mu_High=0.500]
+      input interest = 6      [mu_Low=0.000, mu_Medium=0.500, mu_High=0.500]
+      FR3   alpha=0.500 -> Medium (min of core=Medium(mu=0.750) , skill=Medium(mu=0.500))
+      FR4   alpha=0.500 -> High   (min of skill=High(mu=0.500) , interest=Medium(mu=0.500))
+      FR7   alpha=0.500 -> Medium (min of core=Medium(mu=0.750) , interest=High(mu=0.500))
+      FR1   alpha=0.250 -> High   (min of core=High(mu=0.250) , skill=High(mu=0.500))
+      FR2   alpha=0.250 -> High   (min of core=High(mu=0.250) , interest=High(mu=0.500))
+      FR13  alpha=0.250 -> VeryHigh (min of core=High(mu=0.250) , skill=High(mu=0.500) , interest=High(mu=0.500))
+    --- SE -> suitability 67.1% (Medium) ---
+      input core     = 14     [mu_Low=0.000, mu_Medium=0.500, mu_High=0.500]
+      input skill    = 14     [mu_Low=0.000, mu_Medium=0.500, mu_High=0.500]
+      input interest = 6      [mu_Low=0.000, mu_Medium=0.500, mu_High=0.500]
+      FR1   alpha=0.500 -> High   (min of core=High(mu=0.500) , skill=High(mu=0.500))
+      FR2   alpha=0.500 -> High   (min of core=High(mu=0.500) , interest=High(mu=0.500))
+      FR3   alpha=0.500 -> Medium (min of core=Medium(mu=0.500) , skill=Medium(mu=0.500))
+      FR4   alpha=0.500 -> High   (min of skill=High(mu=0.500) , interest=Medium(mu=0.500))
+      FR7   alpha=0.500 -> Medium (min of core=Medium(mu=0.500) , interest=High(mu=0.500))
+      FR13  alpha=0.500 -> VeryHigh (min of core=High(mu=0.500) , skill=High(mu=0.500) , interest=High(mu=0.500))
+    --- CYB -> suitability 63.4% (Medium) ---
+      input core     = 13     [mu_Low=0.000, mu_Medium=0.750, mu_High=0.250]
+      input skill    = 14     [mu_Low=0.000, mu_Medium=0.500, mu_High=0.500]
+      input interest = 6      [mu_Low=0.000, mu_Medium=0.500, mu_High=0.500]
+      FR3   alpha=0.500 -> Medium (min of core=Medium(mu=0.750) , skill=Medium(mu=0.500))
+      FR4   alpha=0.500 -> High   (min of skill=High(mu=0.500) , interest=Medium(mu=0.500))
+      FR7   alpha=0.500 -> Medium (min of core=Medium(mu=0.750) , interest=High(mu=0.500))
+      FR1   alpha=0.250 -> High   (min of core=High(mu=0.250) , skill=High(mu=0.500))
+      FR2   alpha=0.250 -> High   (min of core=High(mu=0.250) , interest=High(mu=0.500))
+      FR13  alpha=0.250 -> VeryHigh (min of core=High(mu=0.250) , skill=High(mu=0.500) , interest=High(mu=0.500))
+
+====================================================================================================
+STEP 5 - COMPARATIVE ANALYSIS
+====================================================================================================
+| Student | Classical: eligible | Classical: recommended | Default: #ext | Default: suited (presumed) | Default: recommended | Default: orientation | Fuzzy AI % | Fuzzy SE % | Fuzzy CYB % | Fuzzy decision |
+|---|---|---|---|---|---|---|---|---|---|---|
+| S01 Amina Belkacem | AI, SE | AI | 1 | AI, SE | AI | - | 79.5 | 70.0 | 23.2 | AI |
+| S02 Yacine Haddad | SE | SE | 1 | SE | SE | - | 54.5 | 73.2 | 41.4 | SE |
+| S03 Meriem Saadi | CYB | CYB | 1 | CYB | CYB | - | 28.1 | 28.1 | 70.0 | CYB |
+| S04 Sofiane Meziane | - | - | 1 | - | - | - | 23.2 | 20.6 | 23.2 | none (top score 23.2% < 60%) |
+| S05 Lina Zerouki | AI, SE | - | 1 | AI, SE | AI*, SE* | - | 70.0 | 70.0 | 48.9 | AI = SE (tie at 70.0%) |
+| S06 Karim Boudjema | AI, SE | SE | 1 | SE | SE | - | 40.4 | 67.1 | 28.1 | SE |
+| S07 Ines Larbi | AI, SE | AI | 1 | AI, SE | AI, SE* | - | 70.0 | 70.0 | 39.6 | AI = SE (tie at 70.0%) |
+| S08 Omar Cherif | CYB | CYB | 1 | CYB | CYB | - | 34.4 | 45.0 | 73.2 | CYB |
+| S09 Nadia Slimani | SE | - | 1 | AI, SE | - | - | 63.4 | 67.1 | 63.4 | SE |
+| S10 Riad Amrani | AI, CYB, SE | AI, CYB, SE | 2 | AI, CYB, SE | AI, CYB, SE | ext1: ['oriented_cyber'] | ext2: ['oriented_se'] | 59.5 | 70.8 | 73.2 | CYB |
+
+SYNTHESIS OF THE THREE REASONING MODES (observed on the 10 profiles)
+--------------------------------------------------------------------
+1) Missing data (S05, S07 phase 1 - interest questionnaire absent):
+   * Classical logic applies the Closed World Assumption: interests_ai is
+     false, so NO recommendation is derived -> the system abstains.
+   * Default logic PRESUMES a compatible interest (D4a-c): it recommends,
+     while explicitly recording the presumption (presumed_interest_*), and
+     stays ready to retract it.
+   * Fuzzy logic IMPUTES the neutral value 5.0 (full Medium membership) and
+     still produces a graded, rankable score.
+2) Exceptions (S06 - excellent AI grades, declared hatred of AI; S03):
+   * Classical logic has no way to express "normally": eligibility stays
+     grade-driven (eligible_ai is still derived for S06) and only the
+     recommendation rule happens to filter it out.
+   * Default logic blocks D1 through its justification ~dislikes_ai: the
+     aptitude presumption is DEFEATED by the exception - suited_ai is never
+     concluded.
+   * Fuzzy logic has no exceptions per se: the low interest simply activates
+     FR10/FR11 and pulls the AI score down smoothly (40.4% instead of the
+     ~70% his grades alone would yield).
+3) Belief revision (S07 - questionnaire arrives after the first decision):
+   * Classical logic is MONOTONIC: derived(W1) is a subset of derived(W2);
+     the AI recommendation derived from strong problem solving SURVIVES
+     although the student has declared she dislikes AI (limitation).
+   * Default logic is NON-MONOTONIC: adding dislikes_ai makes D1's
+     justification inconsistent -> suited_ai AND recommended_ai are
+     effectively RETRACTED; recommended_se switches from presumed (D4b) to
+     strictly justified (S2a).
+   * Fuzzy logic revises by re-evaluation: the AI score drops from 70.0% to
+     37.4% while SE rises from 70.0% to 73.2% - gradual, no symbolic
+     retraction.
+4) Ambiguity / ties (S10 - equal strong interests in SE and Cyber):
+   * Classical logic recommends SE, Cyber AND AI but cannot rank them.
+   * Default logic represents the hesitation as TWO extensions (Nixon
+     diamond D5a/D5b): each extension is a coherent orientation choice;
+     choosing between extensions = human decision.
+   * Fuzzy logic produces close scores (CYB 73.2% vs SE 70.8% vs AI 59.5%)
+     that give a soft, quantitative tie-break.
+5) Borderline values (S09 - mathematics 13/20 vs threshold 14):
+   * Crisp thresholds (classical) produce an abrupt rejection: one point
+     changes the verdict from eligible to not eligible.
+   * Default logic presumes suited_ai (13 is not "critically weak" maths).
+   * Fuzzy logic degrades gracefully: mu_High(13) = 0.25 and mu_Medium(13) =
+     0.75 yield medium-high scores (63-67% on the three majors) instead of
+     a binary rejection.
+
+
+====================================================================================================
+RUN COMPLETE - files written to output/
+====================================================================================================
+    output/classical_results.json
+    output/comparison_table.csv
+    output/comparison_table.md
+    output/default_results.json
+    output/figures
+    output/fuzzy_results.json
+    output/revision_demo.json
+    output/run_log.txt

@@ -1,0 +1,63 @@
+{
+  "_comment": "Fuzzy knowledge base (Chapitre III, fuzzy sets / fuzzy controller). Linguistic variables with triangular ('tri': [a,b,c]) and trapezoidal ('trap': [a,b,c,d]) membership functions. The three INPUT variables form Ruspini partitions of their domain (mu_Low+mu_Medium+mu_High = 1 everywhere); the OUTPUT variable has four overlapping terms (Low, Medium, High, VeryHigh) so that full excellence can be distinguished from plain high suitability. Inference: Mamdani, AND = min, aggregation = max, defuzzification = centroid. Each major reuses the SAME rule base through an input mapping: 'core' = the major's key subject grade, 'skill' = the supporting skill grade, 'interest' = declared interest for that major. Missing interest is imputed with the neutral value 5.0 (full Medium membership).",
+  "variables": {
+    "core_grade": {
+      "domain": [0, 20], "unit": "grade/20",
+      "terms": {
+        "Low":    {"type": "trap", "params": [0, 0, 8, 12]},
+        "Medium": {"type": "tri",  "params": [8, 12, 16]},
+        "High":   {"type": "trap", "params": [12, 16, 20, 20]}
+      }
+    },
+    "skill_grade": {
+      "domain": [0, 20], "unit": "grade/20",
+      "terms": {
+        "Low":    {"type": "trap", "params": [0, 0, 8, 12]},
+        "Medium": {"type": "tri",  "params": [8, 12, 16]},
+        "High":   {"type": "trap", "params": [12, 16, 20, 20]}
+      }
+    },
+    "interest": {
+      "domain": [0, 10], "unit": "score/10",
+      "terms": {
+        "Low":    {"type": "trap", "params": [0, 0, 3, 5]},
+        "Medium": {"type": "tri",  "params": [3, 5, 7]},
+        "High":   {"type": "trap", "params": [5, 7, 10, 10]}
+      }
+    },
+    "suitability": {
+      "domain": [0, 100], "unit": "%",
+      "terms": {
+        "Low":      {"type": "trap", "params": [0, 0, 30, 45]},
+        "Medium":   {"type": "tri",  "params": [30, 45, 60]},
+        "High":     {"type": "tri",  "params": [50, 70, 90]},
+        "VeryHigh": {"type": "trap", "params": [75, 90, 100, 100]}
+      }
+    }
+  },
+  "major_input_mapping": {
+    "AI":  {"core": "math",     "skill": "algorithmics", "interest": "ai",  "comment": "AI relies on mathematics (core) and algorithmics (skill)"},
+    "SE":  {"core": "programming", "skill": "algorithmics", "interest": "se",  "comment": "SE relies on programming (core) and algorithmics (skill)"},
+    "CYB": {"core": "networks", "skill": "programming",  "interest": "cyber", "comment": "Cybersecurity relies on networks (core) and programming (skill)"}
+  },
+  "imputation": {
+    "interest_missing": 5.0,
+    "grade_missing": 10.0,
+    "comment": "Neutral imputation for missing inputs: interest=5.0 gives full membership in Medium; grade=10.0 is the pass mark. Every imputation is flagged in the output trace."
+  },
+  "rules": [
+    {"id": "FR1",  "if": {"core": "High",   "skill": "High"},   "then": "High",   "text": "IF Core is High AND Skill is High THEN Suitability is High"},
+    {"id": "FR2",  "if": {"core": "High",   "interest": "High"}, "then": "High",   "text": "IF Core is High AND Interest is High THEN Suitability is High"},
+    {"id": "FR3",  "if": {"core": "Medium", "skill": "Medium"}, "then": "Medium", "text": "IF Core is Medium AND Skill is Medium THEN Suitability is Medium"},
+    {"id": "FR4",  "if": {"skill": "High",   "interest": "Medium"}, "then": "High", "text": "IF Skill is High AND Interest is Medium THEN Suitability is High (example given in the TP statement)"},
+    {"id": "FR5",  "if": {"core": "Low"},                        "then": "Low",    "text": "IF Core is Low THEN Suitability is Low"},
+    {"id": "FR6",  "if": {"skill": "Low",    "interest": "Low"},  "then": "Low",    "text": "IF Skill is Low AND Interest is Low THEN Suitability is Low"},
+    {"id": "FR7",  "if": {"core": "Medium", "interest": "High"}, "then": "Medium", "text": "IF Core is Medium AND Interest is High THEN Suitability is Medium"},
+    {"id": "FR8",  "if": {"core": "High",   "skill": "Low"},     "then": "Medium", "text": "IF Core is High AND Skill is Low THEN Suitability is Medium"},
+    {"id": "FR9",  "if": {"core": "Low",    "skill": "High"},    "then": "Low",    "text": "IF Core is Low AND Skill is High THEN Suitability is Low (talent cannot compensate a failing core subject)"},
+    {"id": "FR10", "if": {"core": "High",   "interest": "Low"},  "then": "Medium", "text": "IF Core is High AND Interest is Low THEN Suitability is Medium (good grades partly compensate low motivation)"},
+    {"id": "FR11", "if": {"interest": "Low", "skill": "High"},   "then": "Low",    "text": "IF Interest is Low AND Skill is High THEN Suitability is Low (without motivation, strong skills are not enough)"},
+    {"id": "FR12", "if": {"core": "Medium", "skill": "Low"},     "then": "Low",    "text": "IF Core is Medium AND Skill is Low THEN Suitability is Low"},
+    {"id": "FR13", "if": {"core": "High", "skill": "High", "interest": "High"}, "then": "VeryHigh", "text": "IF Core is High AND Skill is High AND Interest is High THEN Suitability is VeryHigh (excellence on all three dimensions)"}
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "_comment": "The three university majors handled by the orientation system, with their admission/orientation criteria expressed in natural language. The formal counterparts live in rules_classical.json, rules_default.json and fuzzy_config.json.",
+  "majors": [
+    {
+      "id": "AI",
+      "name": "Artificial Intelligence",
+      "key_subjects": ["Mathematics", "Algorithmics"],
+      "admission_criteria": [
+        "High grade in Algorithmics (>= 14/20) and in Mathematics (>= 14/20)",
+        "Declared interest in AI (>= 7/10) OR strong problem-solving skill (>= 7/10) for recommendation"
+      ],
+      "profile": "Data science, machine learning, knowledge representation; requires abstract mathematical thinking and strong algorithmic skills."
+    },
+    {
+      "id": "SE",
+      "name": "Software Engineering",
+      "key_subjects": ["Programming", "Algorithmics"],
+      "admission_criteria": [
+        "High grade in Programming (>= 14/20) and good general average (>= 12/20)",
+        "Declared interest in software development (>= 7/10) OR strong coding practice (>= 7/10) for recommendation"
+      ],
+      "profile": "Large-scale software design, development process, quality; requires solid engineering practice and teamwork on code."
+    },
+    {
+      "id": "CYB",
+      "name": "Cybersecurity",
+      "key_subjects": ["Networks", "Programming"],
+      "admission_criteria": [
+        "High grade in Networks & Systems (>= 14/20) and good general average (>= 12/20)",
+        "Declared interest in security (>= 7/10) OR strong problem-solving skill (>= 7/10) for recommendation"
+      ],
+      "profile": "Network defense, cryptography, security auditing; requires systems knowledge, rigor and a defensive mindset."
+    }
+  ]
+}

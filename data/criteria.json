@@ -1,0 +1,16 @@
+{
+  "_comment": "Crisp thresholds used to derive ground propositional facts from a student profile. Shared by the Classical Logic engine (Chapitre I-A) and the Default Logic engine (Chapitre I-B.2). Grades are on the Algerian 0-20 scale, skills and interests on 0-10.",
+  "grade_scale": [0, 20],
+  "skill_scale": [0, 10],
+  "interest_scale": [0, 10],
+  "thresholds": {
+    "high_grade": 14,
+    "good_average": 12,
+    "low_average": 10,
+    "low_math": 9,
+    "strong_skill": 7,
+    "interest_positive": 7,
+    "interest_negative": 3,
+    "tie_min_interest": 7
+  }
+}

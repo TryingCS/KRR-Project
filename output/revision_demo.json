@@ -1,0 +1,78 @@
+{
+  "student": "S07",
+  "W1": [
+    "good_average",
+    "high_algorithmics",
+    "high_math",
+    "high_programming",
+    "interest_unknown_ai",
+    "interest_unknown_cyber",
+    "interest_unknown_se",
+    "strong_problem_solving"
+  ],
+  "W2": [
+    "dislikes_ai",
+    "dislikes_cyber",
+    "good_average",
+    "high_algorithmics",
+    "high_math",
+    "high_programming",
+    "interests_se",
+    "strong_problem_solving"
+  ],
+  "new_facts": [
+    "dislikes_ai",
+    "dislikes_cyber",
+    "interests_se"
+  ],
+  "removed_facts": [
+    "interest_unknown_ai",
+    "interest_unknown_cyber",
+    "interest_unknown_se"
+  ],
+  "default_phase1": "presumed_interest_ai, presumed_interest_se, recommended_ai, recommended_se, suited_ai, suited_se",
+  "default_phase1_applied": [
+    "D1",
+    "D2",
+    "D4a",
+    "D4b",
+    "S1b"
+  ],
+  "default_phase2": "recommended_se, suited_se",
+  "default_phase2_applied": [
+    "D2",
+    "S2a"
+  ],
+  "retracted": [
+    "presumed_interest_ai",
+    "presumed_interest_se",
+    "recommended_ai",
+    "suited_ai"
+  ],
+  "added": [],
+  "kept_recommended": [
+    "recommended_se"
+  ],
+  "classical_phase1_derived": [
+    "eligible_ai",
+    "eligible_se",
+    "recommended_ai"
+  ],
+  "classical_phase2_derived": [
+    "eligible_ai",
+    "eligible_se",
+    "recommended_ai",
+    "recommended_se"
+  ],
+  "classical_monotonic": true,
+  "fuzzy_phase1": {
+    "AI": 70.0,
+    "SE": 70.0,
+    "CYB": 39.6
+  },
+  "fuzzy_phase2": {
+    "AI": 37.4,
+    "SE": 73.2,
+    "CYB": 23.2
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "_comment": "Classical (monotonic) knowledge base, Chapitre I-A. Rules are Horn clauses: 'if' is a conjunction of ground positive literals (propositional atoms obtained by grounding predicates such as HighAlgo(s) on one student). The engine applies generalized Modus Ponens by forward chaining. 'eligible_X' = the major is administratively ACCESSIBLE; 'recommended_X' = the major is actively RECOMMENDED to the student. Missing data is handled by the Closed World Assumption: a fact that cannot be derived from the profile is FALSE.",
+  "rules": [
+    {"id": "C1",  "if": ["high_algorithmics", "high_math"],       "then": "eligible_ai",       "text": "EligibleAI(s) <- HighAlgo(s) AND HighMath(s)"},
+    {"id": "C2",  "if": ["high_programming", "good_average"],     "then": "eligible_se",       "text": "EligibleSE(s) <- HighProg(s) AND GoodAvg(s)"},
+    {"id": "C3",  "if": ["high_networks", "good_average"],        "then": "eligible_cyber",    "text": "EligibleCYB(s) <- HighNet(s) AND GoodAvg(s)"},
+    {"id": "C4",  "if": ["eligible_ai", "interests_ai"],          "then": "recommended_ai",    "text": "RecAI(s) <- EligibleAI(s) AND InterestedAI(s)"},
+    {"id": "C5",  "if": ["eligible_ai", "strong_problem_solving"],"then": "recommended_ai",    "text": "RecAI(s) <- EligibleAI(s) AND StrongPS(s)"},
+    {"id": "C6",  "if": ["eligible_se", "interests_se"],          "then": "recommended_se",    "text": "RecSE(s) <- EligibleSE(s) AND InterestedSE(s)"},
+    {"id": "C7",  "if": ["eligible_se", "strong_coding"],         "then": "recommended_se",    "text": "RecSE(s) <- EligibleSE(s) AND StrongCoding(s)"},
+    {"id": "C8",  "if": ["eligible_cyber", "interests_cyber"],    "then": "recommended_cyber", "text": "RecCYB(s) <- EligibleCYB(s) AND InterestedCYB(s)"},
+    {"id": "C9",  "if": ["eligible_cyber", "strong_problem_solving"], "then": "recommended_cyber", "text": "RecCYB(s) <- EligibleCYB(s) AND StrongPS(s)"},
+    {"id": "C10", "if": ["low_average"],                          "then": "needs_remediation", "text": "Remediation(s) <- LowAvg(s)"}
+  ]
+}

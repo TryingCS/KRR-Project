@@ -1,0 +1,11 @@
+id,name,classical_eligible,classical_recommended,default_extensions,default_suited,default_recommended,default_orientation,fuzzy_AI,fuzzy_SE,fuzzy_CYB,fuzzy_top,fuzzy_decision
+S01,Amina Belkacem,"AI, SE",AI,1,"AI, SE",AI,-,79.5,70.0,23.2,AI(79.5%) > SE(70.0%) > CYB(23.2%),AI
+S02,Yacine Haddad,SE,SE,1,SE,SE,-,54.5,73.2,41.4,SE(73.2%) > AI(54.5%) > CYB(41.4%),SE
+S03,Meriem Saadi,CYB,CYB,1,CYB,CYB,-,28.1,28.1,70.0,CYB(70.0%) > AI(28.1%) > SE(28.1%),CYB
+S04,Sofiane Meziane,-,-,1,-,-,-,23.2,20.6,23.2,AI(23.2%) > CYB(23.2%) > SE(20.6%),none (top score 23.2% < 60%)
+S05,Lina Zerouki,"AI, SE",-,1,"AI, SE","AI*, SE*",-,70.0,70.0,48.9,AI(70.0%) > SE(70.0%) > CYB(48.9%),AI = SE (tie at 70.0%)
+S06,Karim Boudjema,"AI, SE",SE,1,SE,SE,-,40.4,67.1,28.1,SE(67.1%) > AI(40.4%) > CYB(28.1%),SE
+S07,Ines Larbi,"AI, SE",AI,1,"AI, SE","AI, SE*",-,70.0,70.0,39.6,AI(70.0%) > SE(70.0%) > CYB(39.6%),AI = SE (tie at 70.0%)
+S08,Omar Cherif,CYB,CYB,1,CYB,CYB,-,34.4,45.0,73.2,CYB(73.2%) > SE(45.0%) > AI(34.4%),CYB
+S09,Nadia Slimani,SE,-,1,"AI, SE",-,-,63.4,67.1,63.4,SE(67.1%) > AI(63.4%) > CYB(63.4%),SE
+S10,Riad Amrani,"AI, CYB, SE","AI, CYB, SE",2,"AI, CYB, SE","AI, CYB, SE",ext1: ['oriented_cyber'] | ext2: ['oriented_se'],59.5,70.8,73.2,CYB(73.2%) > SE(70.8%) > AI(59.5%),CYB

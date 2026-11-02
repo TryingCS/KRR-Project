@@ -1,0 +1,1766 @@
+{
+  "S01": {
+    "AI": {
+      "pct": 79.5,
+      "label": "High",
+      "inputs": {
+        "core": {
+          "value": 17,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "skill": {
+          "value": 18,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "interest": {
+          "value": 9,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR1",
+          "alpha": 1.0,
+          "then": "High"
+        },
+        {
+          "rule": "FR2",
+          "alpha": 1.0,
+          "then": "High"
+        },
+        {
+          "rule": "FR13",
+          "alpha": 1.0,
+          "then": "VeryHigh"
+        }
+      ],
+      "fired_count": 3,
+      "rule_count": 13
+    },
+    "SE": {
+      "pct": 70.0,
+      "label": "High",
+      "inputs": {
+        "core": {
+          "value": 15,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.25,
+            "High": 0.75
+          }
+        },
+        "skill": {
+          "value": 18,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "interest": {
+          "value": 5,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR4",
+          "alpha": 1.0,
+          "then": "High"
+        },
+        {
+          "rule": "FR1",
+          "alpha": 0.75,
+          "then": "High"
+        }
+      ],
+      "fired_count": 2,
+      "rule_count": 13
+    },
+    "CYB": {
+      "pct": 23.2,
+      "label": "Low",
+      "inputs": {
+        "core": {
+          "value": 12,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 15,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.25,
+            "High": 0.75
+          }
+        },
+        "interest": {
+          "value": 3,
+          "memberships": {
+            "Low": 1.0,
+            "Medium": 0.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR11",
+          "alpha": 0.75,
+          "then": "Low"
+        },
+        {
+          "rule": "FR3",
+          "alpha": 0.25,
+          "then": "Medium"
+        }
+      ],
+      "fired_count": 2,
+      "rule_count": 13
+    },
+    "ranking": [
+      "AI",
+      "SE",
+      "CYB"
+    ],
+    "decision": "AI"
+  },
+  "S02": {
+    "AI": {
+      "pct": 54.5,
+      "label": "Medium",
+      "inputs": {
+        "core": {
+          "value": 12,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 13,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.75,
+            "High": 0.25
+          }
+        },
+        "interest": {
+          "value": 5,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR3",
+          "alpha": 0.75,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR4",
+          "alpha": 0.25,
+          "then": "High"
+        }
+      ],
+      "fired_count": 2,
+      "rule_count": 13
+    },
+    "SE": {
+      "pct": 73.2,
+      "label": "High",
+      "inputs": {
+        "core": {
+          "value": 17,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "skill": {
+          "value": 13,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.75,
+            "High": 0.25
+          }
+        },
+        "interest": {
+          "value": 9,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR2",
+          "alpha": 1.0,
+          "then": "High"
+        },
+        {
+          "rule": "FR1",
+          "alpha": 0.25,
+          "then": "High"
+        },
+        {
+          "rule": "FR13",
+          "alpha": 0.25,
+          "then": "VeryHigh"
+        }
+      ],
+      "fired_count": 3,
+      "rule_count": 13
+    },
+    "CYB": {
+      "pct": 41.4,
+      "label": "Low",
+      "inputs": {
+        "core": {
+          "value": 10,
+          "memberships": {
+            "Low": 0.5,
+            "Medium": 0.5,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 17,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "interest": {
+          "value": 4,
+          "memberships": {
+            "Low": 0.5,
+            "Medium": 0.5,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR4",
+          "alpha": 0.5,
+          "then": "High"
+        },
+        {
+          "rule": "FR5",
+          "alpha": 0.5,
+          "then": "Low"
+        },
+        {
+          "rule": "FR9",
+          "alpha": 0.5,
+          "then": "Low"
+        },
+        {
+          "rule": "FR11",
+          "alpha": 0.5,
+          "then": "Low"
+        }
+      ],
+      "fired_count": 4,
+      "rule_count": 13
+    },
+    "ranking": [
+      "SE",
+      "AI",
+      "CYB"
+    ],
+    "decision": "SE"
+  },
+  "S03": {
+    "AI": {
+      "pct": 28.1,
+      "label": "Low",
+      "inputs": {
+        "core": {
+          "value": 11,
+          "memberships": {
+            "Low": 0.25,
+            "Medium": 0.75,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 10,
+          "memberships": {
+            "Low": 0.5,
+            "Medium": 0.5,
+            "High": 0.0
+          }
+        },
+        "interest": {
+          "value": 2,
+          "memberships": {
+            "Low": 1.0,
+            "Medium": 0.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR3",
+          "alpha": 0.5,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR6",
+          "alpha": 0.5,
+          "then": "Low"
+        },
+        {
+          "rule": "FR12",
+          "alpha": 0.5,
+          "then": "Low"
+        },
+        {
+          "rule": "FR5",
+          "alpha": 0.25,
+          "then": "Low"
+        }
+      ],
+      "fired_count": 4,
+      "rule_count": 13
+    },
+    "SE": {
+      "pct": 28.1,
+      "label": "Low",
+      "inputs": {
+        "core": {
+          "value": 12,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 10,
+          "memberships": {
+            "Low": 0.5,
+            "Medium": 0.5,
+            "High": 0.0
+          }
+        },
+        "interest": {
+          "value": 3,
+          "memberships": {
+            "Low": 1.0,
+            "Medium": 0.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR3",
+          "alpha": 0.5,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR6",
+          "alpha": 0.5,
+          "then": "Low"
+        },
+        {
+          "rule": "FR12",
+          "alpha": 0.5,
+          "then": "Low"
+        }
+      ],
+      "fired_count": 3,
+      "rule_count": 13
+    },
+    "CYB": {
+      "pct": 70.0,
+      "label": "High",
+      "inputs": {
+        "core": {
+          "value": 16,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "skill": {
+          "value": 12,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        },
+        "interest": {
+          "value": 9,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR2",
+          "alpha": 1.0,
+          "then": "High"
+        }
+      ],
+      "fired_count": 1,
+      "rule_count": 13
+    },
+    "ranking": [
+      "CYB",
+      "AI",
+      "SE"
+    ],
+    "decision": "CYB"
+  },
+  "S04": {
+    "AI": {
+      "pct": 23.2,
+      "label": "Low",
+      "inputs": {
+        "core": {
+          "value": 9,
+          "memberships": {
+            "Low": 0.75,
+            "Medium": 0.25,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 8,
+          "memberships": {
+            "Low": 1.0,
+            "Medium": 0.0,
+            "High": 0.0
+          }
+        },
+        "interest": {
+          "value": 6,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR5",
+          "alpha": 0.75,
+          "then": "Low"
+        },
+        {
+          "rule": "FR7",
+          "alpha": 0.25,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR12",
+          "alpha": 0.25,
+          "then": "Low"
+        }
+      ],
+      "fired_count": 3,
+      "rule_count": 13
+    },
+    "SE": {
+      "pct": 20.6,
+      "label": "Low",
+      "inputs": {
+        "core": {
+          "value": 10,
+          "memberships": {
+            "Low": 0.5,
+            "Medium": 0.5,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 8,
+          "memberships": {
+            "Low": 1.0,
+            "Medium": 0.0,
+            "High": 0.0
+          }
+        },
+        "interest": {
+          "value": 5,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR5",
+          "alpha": 0.5,
+          "then": "Low"
+        },
+        {
+          "rule": "FR12",
+          "alpha": 0.5,
+          "then": "Low"
+        }
+      ],
+      "fired_count": 2,
+      "rule_count": 13
+    },
+    "CYB": {
+      "pct": 23.2,
+      "label": "Low",
+      "inputs": {
+        "core": {
+          "value": 9,
+          "memberships": {
+            "Low": 0.75,
+            "Medium": 0.25,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 10,
+          "memberships": {
+            "Low": 0.5,
+            "Medium": 0.5,
+            "High": 0.0
+          }
+        },
+        "interest": {
+          "value": 5,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR5",
+          "alpha": 0.75,
+          "then": "Low"
+        },
+        {
+          "rule": "FR3",
+          "alpha": 0.25,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR12",
+          "alpha": 0.25,
+          "then": "Low"
+        }
+      ],
+      "fired_count": 3,
+      "rule_count": 13
+    },
+    "ranking": [
+      "AI",
+      "CYB",
+      "SE"
+    ],
+    "decision": "none (top score 23.2% < 60%)"
+  },
+  "S05": {
+    "AI": {
+      "pct": 70.0,
+      "label": "High",
+      "inputs": {
+        "core": {
+          "value": 15,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.25,
+            "High": 0.75
+          }
+        },
+        "skill": {
+          "value": 16,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "interest": {
+          "value": 5.0,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [
+        "interest (ai) imputed to 5.0 (neutral)"
+      ],
+      "fired_rules": [
+        {
+          "rule": "FR4",
+          "alpha": 1.0,
+          "then": "High",
+          "antecedents": [
+            "skill=High(mu=1.000)",
+            "interest=Medium(mu=1.000)"
+          ],
+          "text": "IF Skill is High AND Interest is Medium THEN Suitability is High (example given in the TP statement)"
+        },
+        {
+          "rule": "FR1",
+          "alpha": 0.75,
+          "then": "High",
+          "antecedents": [
+            "core=High(mu=0.750)",
+            "skill=High(mu=1.000)"
+          ],
+          "text": "IF Core is High AND Skill is High THEN Suitability is High"
+        }
+      ],
+      "fired_count": 2,
+      "rule_count": 13
+    },
+    "SE": {
+      "pct": 70.0,
+      "label": "High",
+      "inputs": {
+        "core": {
+          "value": 14,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        },
+        "skill": {
+          "value": 16,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "interest": {
+          "value": 5.0,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [
+        "interest (se) imputed to 5.0 (neutral)"
+      ],
+      "fired_rules": [
+        {
+          "rule": "FR4",
+          "alpha": 1.0,
+          "then": "High",
+          "antecedents": [
+            "skill=High(mu=1.000)",
+            "interest=Medium(mu=1.000)"
+          ],
+          "text": "IF Skill is High AND Interest is Medium THEN Suitability is High (example given in the TP statement)"
+        },
+        {
+          "rule": "FR1",
+          "alpha": 0.5,
+          "then": "High",
+          "antecedents": [
+            "core=High(mu=0.500)",
+            "skill=High(mu=1.000)"
+          ],
+          "text": "IF Core is High AND Skill is High THEN Suitability is High"
+        }
+      ],
+      "fired_count": 2,
+      "rule_count": 13
+    },
+    "CYB": {
+      "pct": 48.9,
+      "label": "Medium",
+      "inputs": {
+        "core": {
+          "value": 11,
+          "memberships": {
+            "Low": 0.25,
+            "Medium": 0.75,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 14,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        },
+        "interest": {
+          "value": 5.0,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [
+        "interest (cyber) imputed to 5.0 (neutral)"
+      ],
+      "fired_rules": [
+        {
+          "rule": "FR3",
+          "alpha": 0.5,
+          "then": "Medium",
+          "antecedents": [
+            "core=Medium(mu=0.750)",
+            "skill=Medium(mu=0.500)"
+          ],
+          "text": "IF Core is Medium AND Skill is Medium THEN Suitability is Medium"
+        },
+        {
+          "rule": "FR4",
+          "alpha": 0.5,
+          "then": "High",
+          "antecedents": [
+            "skill=High(mu=0.500)",
+            "interest=Medium(mu=1.000)"
+          ],
+          "text": "IF Skill is High AND Interest is Medium THEN Suitability is High (example given in the TP statement)"
+        },
+        {
+          "rule": "FR5",
+          "alpha": 0.25,
+          "then": "Low",
+          "antecedents": [
+            "core=Low(mu=0.250)"
+          ],
+          "text": "IF Core is Low THEN Suitability is Low"
+        },
+        {
+          "rule": "FR9",
+          "alpha": 0.25,
+          "then": "Low",
+          "antecedents": [
+            "core=Low(mu=0.250)",
+            "skill=High(mu=0.500)"
+          ],
+          "text": "IF Core is Low AND Skill is High THEN Suitability is Low (talent cannot compensate a failing core subject)"
+        }
+      ],
+      "fired_count": 4,
+      "rule_count": 13
+    },
+    "ranking": [
+      "AI",
+      "SE",
+      "CYB"
+    ],
+    "decision": "AI = SE (tie at 70.0%)"
+  },
+  "S06": {
+    "AI": {
+      "pct": 40.4,
+      "label": "Low",
+      "inputs": {
+        "core": {
+          "value": 16,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "skill": {
+          "value": 15,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.25,
+            "High": 0.75
+          }
+        },
+        "interest": {
+          "value": 1,
+          "memberships": {
+            "Low": 1.0,
+            "Medium": 0.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR10",
+          "alpha": 1.0,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR1",
+          "alpha": 0.75,
+          "then": "High"
+        },
+        {
+          "rule": "FR11",
+          "alpha": 0.75,
+          "then": "Low"
+        }
+      ],
+      "fired_count": 3,
+      "rule_count": 13
+    },
+    "SE": {
+      "pct": 67.1,
+      "label": "Medium",
+      "inputs": {
+        "core": {
+          "value": 14,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        },
+        "skill": {
+          "value": 15,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.25,
+            "High": 0.75
+          }
+        },
+        "interest": {
+          "value": 8,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR1",
+          "alpha": 0.5,
+          "then": "High"
+        },
+        {
+          "rule": "FR2",
+          "alpha": 0.5,
+          "then": "High"
+        },
+        {
+          "rule": "FR7",
+          "alpha": 0.5,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR13",
+          "alpha": 0.5,
+          "then": "VeryHigh"
+        },
+        {
+          "rule": "FR3",
+          "alpha": 0.25,
+          "then": "Medium"
+        }
+      ],
+      "fired_count": 5,
+      "rule_count": 13
+    },
+    "CYB": {
+      "pct": 28.1,
+      "label": "Low",
+      "inputs": {
+        "core": {
+          "value": 10,
+          "memberships": {
+            "Low": 0.5,
+            "Medium": 0.5,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 14,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        },
+        "interest": {
+          "value": 2,
+          "memberships": {
+            "Low": 1.0,
+            "Medium": 0.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR3",
+          "alpha": 0.5,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR5",
+          "alpha": 0.5,
+          "then": "Low"
+        },
+        {
+          "rule": "FR9",
+          "alpha": 0.5,
+          "then": "Low"
+        },
+        {
+          "rule": "FR11",
+          "alpha": 0.5,
+          "then": "Low"
+        }
+      ],
+      "fired_count": 4,
+      "rule_count": 13
+    },
+    "ranking": [
+      "SE",
+      "AI",
+      "CYB"
+    ],
+    "decision": "SE"
+  },
+  "S07": {
+    "AI": {
+      "pct": 70.0,
+      "label": "High",
+      "inputs": {
+        "core": {
+          "value": 15,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.25,
+            "High": 0.75
+          }
+        },
+        "skill": {
+          "value": 17,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "interest": {
+          "value": 5.0,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [
+        "interest (ai) imputed to 5.0 (neutral)"
+      ],
+      "fired_rules": [
+        {
+          "rule": "FR4",
+          "alpha": 1.0,
+          "then": "High"
+        },
+        {
+          "rule": "FR1",
+          "alpha": 0.75,
+          "then": "High"
+        }
+      ],
+      "fired_count": 2,
+      "rule_count": 13
+    },
+    "SE": {
+      "pct": 70.0,
+      "label": "High",
+      "inputs": {
+        "core": {
+          "value": 15,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.25,
+            "High": 0.75
+          }
+        },
+        "skill": {
+          "value": 17,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "interest": {
+          "value": 5.0,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [
+        "interest (se) imputed to 5.0 (neutral)"
+      ],
+      "fired_rules": [
+        {
+          "rule": "FR4",
+          "alpha": 1.0,
+          "then": "High"
+        },
+        {
+          "rule": "FR1",
+          "alpha": 0.75,
+          "then": "High"
+        }
+      ],
+      "fired_count": 2,
+      "rule_count": 13
+    },
+    "CYB": {
+      "pct": 39.6,
+      "label": "Low",
+      "inputs": {
+        "core": {
+          "value": 9,
+          "memberships": {
+            "Low": 0.75,
+            "Medium": 0.25,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 15,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.25,
+            "High": 0.75
+          }
+        },
+        "interest": {
+          "value": 5.0,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [
+        "interest (cyber) imputed to 5.0 (neutral)"
+      ],
+      "fired_rules": [
+        {
+          "rule": "FR4",
+          "alpha": 0.75,
+          "then": "High"
+        },
+        {
+          "rule": "FR5",
+          "alpha": 0.75,
+          "then": "Low"
+        },
+        {
+          "rule": "FR9",
+          "alpha": 0.75,
+          "then": "Low"
+        },
+        {
+          "rule": "FR3",
+          "alpha": 0.25,
+          "then": "Medium"
+        }
+      ],
+      "fired_count": 4,
+      "rule_count": 13
+    },
+    "ranking": [
+      "AI",
+      "SE",
+      "CYB"
+    ],
+    "decision": "AI = SE (tie at 70.0%)"
+  },
+  "S08": {
+    "AI": {
+      "pct": 34.4,
+      "label": "Low",
+      "inputs": {
+        "core": {
+          "value": 11,
+          "memberships": {
+            "Low": 0.25,
+            "Medium": 0.75,
+            "High": 0.0
+          }
+        },
+        "skill": {
+          "value": 12,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        },
+        "interest": {
+          "value": 3,
+          "memberships": {
+            "Low": 1.0,
+            "Medium": 0.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR3",
+          "alpha": 0.75,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR5",
+          "alpha": 0.25,
+          "then": "Low"
+        }
+      ],
+      "fired_count": 2,
+      "rule_count": 13
+    },
+    "SE": {
+      "pct": 45.0,
+      "label": "Medium",
+      "inputs": {
+        "core": {
+          "value": 13,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.75,
+            "High": 0.25
+          }
+        },
+        "skill": {
+          "value": 12,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        },
+        "interest": {
+          "value": 4,
+          "memberships": {
+            "Low": 0.5,
+            "Medium": 0.5,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR3",
+          "alpha": 0.75,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR10",
+          "alpha": 0.25,
+          "then": "Medium"
+        }
+      ],
+      "fired_count": 2,
+      "rule_count": 13
+    },
+    "CYB": {
+      "pct": 73.2,
+      "label": "High",
+      "inputs": {
+        "core": {
+          "value": 17,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        },
+        "skill": {
+          "value": 13,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.75,
+            "High": 0.25
+          }
+        },
+        "interest": {
+          "value": 8,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR2",
+          "alpha": 1.0,
+          "then": "High"
+        },
+        {
+          "rule": "FR1",
+          "alpha": 0.25,
+          "then": "High"
+        },
+        {
+          "rule": "FR13",
+          "alpha": 0.25,
+          "then": "VeryHigh"
+        }
+      ],
+      "fired_count": 3,
+      "rule_count": 13
+    },
+    "ranking": [
+      "CYB",
+      "SE",
+      "AI"
+    ],
+    "decision": "CYB"
+  },
+  "S09": {
+    "AI": {
+      "pct": 63.4,
+      "label": "Medium",
+      "inputs": {
+        "core": {
+          "value": 13,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.75,
+            "High": 0.25
+          }
+        },
+        "skill": {
+          "value": 14,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        },
+        "interest": {
+          "value": 6,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR3",
+          "alpha": 0.5,
+          "then": "Medium",
+          "antecedents": [
+            "core=Medium(mu=0.750)",
+            "skill=Medium(mu=0.500)"
+          ],
+          "text": "IF Core is Medium AND Skill is Medium THEN Suitability is Medium"
+        },
+        {
+          "rule": "FR4",
+          "alpha": 0.5,
+          "then": "High",
+          "antecedents": [
+            "skill=High(mu=0.500)",
+            "interest=Medium(mu=0.500)"
+          ],
+          "text": "IF Skill is High AND Interest is Medium THEN Suitability is High (example given in the TP statement)"
+        },
+        {
+          "rule": "FR7",
+          "alpha": 0.5,
+          "then": "Medium",
+          "antecedents": [
+            "core=Medium(mu=0.750)",
+            "interest=High(mu=0.500)"
+          ],
+          "text": "IF Core is Medium AND Interest is High THEN Suitability is Medium"
+        },
+        {
+          "rule": "FR1",
+          "alpha": 0.25,
+          "then": "High",
+          "antecedents": [
+            "core=High(mu=0.250)",
+            "skill=High(mu=0.500)"
+          ],
+          "text": "IF Core is High AND Skill is High THEN Suitability is High"
+        },
+        {
+          "rule": "FR2",
+          "alpha": 0.25,
+          "then": "High",
+          "antecedents": [
+            "core=High(mu=0.250)",
+            "interest=High(mu=0.500)"
+          ],
+          "text": "IF Core is High AND Interest is High THEN Suitability is High"
+        },
+        {
+          "rule": "FR13",
+          "alpha": 0.25,
+          "then": "VeryHigh",
+          "antecedents": [
+            "core=High(mu=0.250)",
+            "skill=High(mu=0.500)",
+            "interest=High(mu=0.500)"
+          ],
+          "text": "IF Core is High AND Skill is High AND Interest is High THEN Suitability is VeryHigh (excellence on all three dimensions)"
+        }
+      ],
+      "fired_count": 6,
+      "rule_count": 13
+    },
+    "SE": {
+      "pct": 67.1,
+      "label": "Medium",
+      "inputs": {
+        "core": {
+          "value": 14,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        },
+        "skill": {
+          "value": 14,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        },
+        "interest": {
+          "value": 6,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR1",
+          "alpha": 0.5,
+          "then": "High",
+          "antecedents": [
+            "core=High(mu=0.500)",
+            "skill=High(mu=0.500)"
+          ],
+          "text": "IF Core is High AND Skill is High THEN Suitability is High"
+        },
+        {
+          "rule": "FR2",
+          "alpha": 0.5,
+          "then": "High",
+          "antecedents": [
+            "core=High(mu=0.500)",
+            "interest=High(mu=0.500)"
+          ],
+          "text": "IF Core is High AND Interest is High THEN Suitability is High"
+        },
+        {
+          "rule": "FR3",
+          "alpha": 0.5,
+          "then": "Medium",
+          "antecedents": [
+            "core=Medium(mu=0.500)",
+            "skill=Medium(mu=0.500)"
+          ],
+          "text": "IF Core is Medium AND Skill is Medium THEN Suitability is Medium"
+        },
+        {
+          "rule": "FR4",
+          "alpha": 0.5,
+          "then": "High",
+          "antecedents": [
+            "skill=High(mu=0.500)",
+            "interest=Medium(mu=0.500)"
+          ],
+          "text": "IF Skill is High AND Interest is Medium THEN Suitability is High (example given in the TP statement)"
+        },
+        {
+          "rule": "FR7",
+          "alpha": 0.5,
+          "then": "Medium",
+          "antecedents": [
+            "core=Medium(mu=0.500)",
+            "interest=High(mu=0.500)"
+          ],
+          "text": "IF Core is Medium AND Interest is High THEN Suitability is Medium"
+        },
+        {
+          "rule": "FR13",
+          "alpha": 0.5,
+          "then": "VeryHigh",
+          "antecedents": [
+            "core=High(mu=0.500)",
+            "skill=High(mu=0.500)",
+            "interest=High(mu=0.500)"
+          ],
+          "text": "IF Core is High AND Skill is High AND Interest is High THEN Suitability is VeryHigh (excellence on all three dimensions)"
+        }
+      ],
+      "fired_count": 6,
+      "rule_count": 13
+    },
+    "CYB": {
+      "pct": 63.4,
+      "label": "Medium",
+      "inputs": {
+        "core": {
+          "value": 13,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.75,
+            "High": 0.25
+          }
+        },
+        "skill": {
+          "value": 14,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        },
+        "interest": {
+          "value": 6,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR3",
+          "alpha": 0.5,
+          "then": "Medium",
+          "antecedents": [
+            "core=Medium(mu=0.750)",
+            "skill=Medium(mu=0.500)"
+          ],
+          "text": "IF Core is Medium AND Skill is Medium THEN Suitability is Medium"
+        },
+        {
+          "rule": "FR4",
+          "alpha": 0.5,
+          "then": "High",
+          "antecedents": [
+            "skill=High(mu=0.500)",
+            "interest=Medium(mu=0.500)"
+          ],
+          "text": "IF Skill is High AND Interest is Medium THEN Suitability is High (example given in the TP statement)"
+        },
+        {
+          "rule": "FR7",
+          "alpha": 0.5,
+          "then": "Medium",
+          "antecedents": [
+            "core=Medium(mu=0.750)",
+            "interest=High(mu=0.500)"
+          ],
+          "text": "IF Core is Medium AND Interest is High THEN Suitability is Medium"
+        },
+        {
+          "rule": "FR1",
+          "alpha": 0.25,
+          "then": "High",
+          "antecedents": [
+            "core=High(mu=0.250)",
+            "skill=High(mu=0.500)"
+          ],
+          "text": "IF Core is High AND Skill is High THEN Suitability is High"
+        },
+        {
+          "rule": "FR2",
+          "alpha": 0.25,
+          "then": "High",
+          "antecedents": [
+            "core=High(mu=0.250)",
+            "interest=High(mu=0.500)"
+          ],
+          "text": "IF Core is High AND Interest is High THEN Suitability is High"
+        },
+        {
+          "rule": "FR13",
+          "alpha": 0.25,
+          "then": "VeryHigh",
+          "antecedents": [
+            "core=High(mu=0.250)",
+            "skill=High(mu=0.500)",
+            "interest=High(mu=0.500)"
+          ],
+          "text": "IF Core is High AND Skill is High AND Interest is High THEN Suitability is VeryHigh (excellence on all three dimensions)"
+        }
+      ],
+      "fired_count": 6,
+      "rule_count": 13
+    },
+    "ranking": [
+      "SE",
+      "AI",
+      "CYB"
+    ],
+    "decision": "SE"
+  },
+  "S10": {
+    "AI": {
+      "pct": 59.5,
+      "label": "Medium",
+      "inputs": {
+        "core": {
+          "value": 14,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        },
+        "skill": {
+          "value": 14,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        },
+        "interest": {
+          "value": 5,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 1.0,
+            "High": 0.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR1",
+          "alpha": 0.5,
+          "then": "High"
+        },
+        {
+          "rule": "FR3",
+          "alpha": 0.5,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR4",
+          "alpha": 0.5,
+          "then": "High"
+        }
+      ],
+      "fired_count": 3,
+      "rule_count": 13
+    },
+    "SE": {
+      "pct": 70.8,
+      "label": "High",
+      "inputs": {
+        "core": {
+          "value": 15,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.25,
+            "High": 0.75
+          }
+        },
+        "skill": {
+          "value": 14,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.5,
+            "High": 0.5
+          }
+        },
+        "interest": {
+          "value": 7,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR2",
+          "alpha": 0.75,
+          "then": "High"
+        },
+        {
+          "rule": "FR1",
+          "alpha": 0.5,
+          "then": "High"
+        },
+        {
+          "rule": "FR13",
+          "alpha": 0.5,
+          "then": "VeryHigh"
+        },
+        {
+          "rule": "FR3",
+          "alpha": 0.25,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR7",
+          "alpha": 0.25,
+          "then": "Medium"
+        }
+      ],
+      "fired_count": 5,
+      "rule_count": 13
+    },
+    "CYB": {
+      "pct": 73.2,
+      "label": "High",
+      "inputs": {
+        "core": {
+          "value": 15,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.25,
+            "High": 0.75
+          }
+        },
+        "skill": {
+          "value": 15,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.25,
+            "High": 0.75
+          }
+        },
+        "interest": {
+          "value": 7,
+          "memberships": {
+            "Low": 0.0,
+            "Medium": 0.0,
+            "High": 1.0
+          }
+        }
+      },
+      "imputed": [],
+      "fired_rules": [
+        {
+          "rule": "FR1",
+          "alpha": 0.75,
+          "then": "High"
+        },
+        {
+          "rule": "FR2",
+          "alpha": 0.75,
+          "then": "High"
+        },
+        {
+          "rule": "FR13",
+          "alpha": 0.75,
+          "then": "VeryHigh"
+        },
+        {
+          "rule": "FR3",
+          "alpha": 0.25,
+          "then": "Medium"
+        },
+        {
+          "rule": "FR7",
+          "alpha": 0.25,
+          "then": "Medium"
+        }
+      ],
+      "fired_count": 5,
+      "rule_count": 13
+    },
+    "ranking": [
+      "CYB",
+      "SE",
+      "AI"
+    ],
+    "decision": "CYB"
+  }
+}

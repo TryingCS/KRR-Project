@@ -1,0 +1,541 @@
+{
+  "S01": {
+    "count": 1,
+    "extensions": [
+      {
+        "beliefs": [
+          "dislikes_cyber",
+          "good_average",
+          "high_algorithmics",
+          "high_math",
+          "high_programming",
+          "interests_ai",
+          "recommended_ai",
+          "strong_problem_solving",
+          "suited_ai",
+          "suited_se"
+        ],
+        "applied": [
+          "D1",
+          "D2",
+          "S1a",
+          "S1b"
+        ],
+        "support": {
+          "suited_ai": [
+            "D1"
+          ],
+          "suited_se": [
+            "D2"
+          ],
+          "recommended_ai": [
+            "S1a",
+            "S1b"
+          ]
+        }
+      }
+    ],
+    "suited_common": [
+      "AI",
+      "SE"
+    ],
+    "recommended_common": [
+      "AI"
+    ],
+    "recommended_display": [
+      "AI"
+    ],
+    "orientation": "-",
+    "processes_explored": 23
+  },
+  "S02": {
+    "count": 1,
+    "extensions": [
+      {
+        "beliefs": [
+          "good_average",
+          "high_programming",
+          "interests_se",
+          "recommended_se",
+          "strong_coding",
+          "strong_problem_solving",
+          "suited_se"
+        ],
+        "applied": [
+          "D2",
+          "S2a",
+          "S2b"
+        ],
+        "support": {
+          "suited_se": [
+            "D2"
+          ],
+          "recommended_se": [
+            "S2a",
+            "S2b"
+          ]
+        }
+      }
+    ],
+    "suited_common": [
+      "SE"
+    ],
+    "recommended_common": [
+      "SE"
+    ],
+    "recommended_display": [
+      "SE"
+    ],
+    "orientation": "-",
+    "processes_explored": 6
+  },
+  "S03": {
+    "count": 1,
+    "extensions": [
+      {
+        "beliefs": [
+          "dislikes_ai",
+          "dislikes_se",
+          "good_average",
+          "high_networks",
+          "interests_cyber",
+          "recommended_cyber",
+          "strong_problem_solving",
+          "suited_cyber"
+        ],
+        "applied": [
+          "D3",
+          "S3a",
+          "S3b"
+        ],
+        "support": {
+          "suited_cyber": [
+            "D3"
+          ],
+          "recommended_cyber": [
+            "S3a",
+            "S3b"
+          ]
+        }
+      }
+    ],
+    "suited_common": [
+      "CYB"
+    ],
+    "recommended_common": [
+      "CYB"
+    ],
+    "recommended_display": [
+      "CYB"
+    ],
+    "orientation": "-",
+    "processes_explored": 6
+  },
+  "S04": {
+    "count": 1,
+    "extensions": [
+      {
+        "beliefs": [
+          "low_average",
+          "low_math",
+          "needs_remediation"
+        ],
+        "applied": [
+          "S4"
+        ],
+        "support": {
+          "needs_remediation": [
+            "S4"
+          ]
+        }
+      }
+    ],
+    "suited_common": [],
+    "recommended_common": [],
+    "recommended_display": [],
+    "orientation": "-",
+    "processes_explored": 2
+  },
+  "S05": {
+    "count": 1,
+    "extensions": [
+      {
+        "beliefs": [
+          "good_average",
+          "high_algorithmics",
+          "high_math",
+          "high_programming",
+          "interest_unknown_ai",
+          "interest_unknown_cyber",
+          "interest_unknown_se",
+          "presumed_interest_ai",
+          "presumed_interest_se",
+          "recommended_ai",
+          "recommended_se",
+          "suited_ai",
+          "suited_se"
+        ],
+        "applied": [
+          "D1",
+          "D2",
+          "D4a",
+          "D4b"
+        ],
+        "support": {
+          "suited_ai": [
+            "D1"
+          ],
+          "suited_se": [
+            "D2"
+          ],
+          "presumed_interest_ai": [
+            "D4a"
+          ],
+          "recommended_ai": [
+            "D4a"
+          ],
+          "recommended_se": [
+            "D4b"
+          ],
+          "presumed_interest_se": [
+            "D4b"
+          ]
+        }
+      }
+    ],
+    "suited_common": [
+      "AI",
+      "SE"
+    ],
+    "recommended_common": [
+      "AI",
+      "SE"
+    ],
+    "recommended_display": [
+      "AI*",
+      "SE*"
+    ],
+    "orientation": "-",
+    "processes_explored": 19
+  },
+  "S06": {
+    "count": 1,
+    "extensions": [
+      {
+        "beliefs": [
+          "dislikes_ai",
+          "dislikes_cyber",
+          "good_average",
+          "high_algorithmics",
+          "high_math",
+          "high_programming",
+          "interests_se",
+          "recommended_se",
+          "strong_coding",
+          "suited_se"
+        ],
+        "applied": [
+          "D2",
+          "S2a",
+          "S2b"
+        ],
+        "support": {
+          "suited_se": [
+            "D2"
+          ],
+          "recommended_se": [
+            "S2a",
+            "S2b"
+          ]
+        }
+      }
+    ],
+    "suited_common": [
+      "SE"
+    ],
+    "recommended_common": [
+      "SE"
+    ],
+    "recommended_display": [
+      "SE"
+    ],
+    "orientation": "-",
+    "processes_explored": 6
+  },
+  "S07": {
+    "count": 1,
+    "extensions": [
+      {
+        "beliefs": [
+          "good_average",
+          "high_algorithmics",
+          "high_math",
+          "high_programming",
+          "interest_unknown_ai",
+          "interest_unknown_cyber",
+          "interest_unknown_se",
+          "presumed_interest_ai",
+          "presumed_interest_se",
+          "recommended_ai",
+          "recommended_se",
+          "strong_problem_solving",
+          "suited_ai",
+          "suited_se"
+        ],
+        "applied": [
+          "D1",
+          "D2",
+          "D4a",
+          "D4b",
+          "S1b"
+        ],
+        "support": {
+          "suited_ai": [
+            "D1"
+          ],
+          "suited_se": [
+            "D2"
+          ],
+          "presumed_interest_ai": [
+            "D4a"
+          ],
+          "recommended_ai": [
+            "D4a",
+            "S1b"
+          ],
+          "recommended_se": [
+            "D4b"
+          ],
+          "presumed_interest_se": [
+            "D4b"
+          ]
+        }
+      }
+    ],
+    "suited_common": [
+      "AI",
+      "SE"
+    ],
+    "recommended_common": [
+      "AI",
+      "SE"
+    ],
+    "recommended_display": [
+      "AI",
+      "SE*"
+    ],
+    "orientation": "-",
+    "processes_explored": 59
+  },
+  "S08": {
+    "count": 1,
+    "extensions": [
+      {
+        "beliefs": [
+          "dislikes_ai",
+          "good_average",
+          "high_networks",
+          "interests_cyber",
+          "recommended_cyber",
+          "strong_problem_solving",
+          "suited_cyber"
+        ],
+        "applied": [
+          "D3",
+          "S3a",
+          "S3b"
+        ],
+        "support": {
+          "suited_cyber": [
+            "D3"
+          ],
+          "recommended_cyber": [
+            "S3a",
+            "S3b"
+          ]
+        }
+      }
+    ],
+    "suited_common": [
+      "CYB"
+    ],
+    "recommended_common": [
+      "CYB"
+    ],
+    "recommended_display": [
+      "CYB"
+    ],
+    "orientation": "-",
+    "processes_explored": 6
+  },
+  "S09": {
+    "count": 1,
+    "extensions": [
+      {
+        "beliefs": [
+          "good_average",
+          "high_algorithmics",
+          "high_programming",
+          "suited_ai",
+          "suited_se"
+        ],
+        "applied": [
+          "D1",
+          "D2"
+        ],
+        "support": {
+          "suited_ai": [
+            "D1"
+          ],
+          "suited_se": [
+            "D2"
+          ]
+        }
+      }
+    ],
+    "suited_common": [
+      "AI",
+      "SE"
+    ],
+    "recommended_common": [],
+    "recommended_display": [],
+    "orientation": "-",
+    "processes_explored": 5
+  },
+  "S10": {
+    "count": 2,
+    "extensions": [
+      {
+        "beliefs": [
+          "good_average",
+          "high_algorithmics",
+          "high_math",
+          "high_networks",
+          "high_programming",
+          "interests_cyber",
+          "interests_se",
+          "oriented_cyber",
+          "recommended_ai",
+          "recommended_cyber",
+          "recommended_se",
+          "strong_coding",
+          "strong_problem_solving",
+          "suited_ai",
+          "suited_cyber",
+          "suited_se",
+          "tied_se_cyber"
+        ],
+        "applied": [
+          "D1",
+          "D2",
+          "D3",
+          "D5a",
+          "S1b",
+          "S2a",
+          "S2b",
+          "S3a",
+          "S3b"
+        ],
+        "support": {
+          "suited_ai": [
+            "D1"
+          ],
+          "suited_se": [
+            "D2"
+          ],
+          "suited_cyber": [
+            "D3"
+          ],
+          "oriented_cyber": [
+            "D5a"
+          ],
+          "recommended_ai": [
+            "S1b"
+          ],
+          "recommended_se": [
+            "S2a",
+            "S2b"
+          ],
+          "recommended_cyber": [
+            "S3a",
+            "S3b"
+          ]
+        }
+      },
+      {
+        "beliefs": [
+          "good_average",
+          "high_algorithmics",
+          "high_math",
+          "high_networks",
+          "high_programming",
+          "interests_cyber",
+          "interests_se",
+          "oriented_se",
+          "recommended_ai",
+          "recommended_cyber",
+          "recommended_se",
+          "strong_coding",
+          "strong_problem_solving",
+          "suited_ai",
+          "suited_cyber",
+          "suited_se",
+          "tied_se_cyber"
+        ],
+        "applied": [
+          "D1",
+          "D2",
+          "D3",
+          "D5b",
+          "S1b",
+          "S2a",
+          "S2b",
+          "S3a",
+          "S3b"
+        ],
+        "support": {
+          "suited_ai": [
+            "D1"
+          ],
+          "suited_se": [
+            "D2"
+          ],
+          "suited_cyber": [
+            "D3"
+          ],
+          "oriented_se": [
+            "D5b"
+          ],
+          "recommended_ai": [
+            "S1b"
+          ],
+          "recommended_se": [
+            "S2a",
+            "S2b"
+          ],
+          "recommended_cyber": [
+            "S3a",
+            "S3b"
+          ]
+        }
+      }
+    ],
+    "suited_common": [
+      "AI",
+      "CYB",
+      "SE"
+    ],
+    "recommended_common": [
+      "AI",
+      "CYB",
+      "SE"
+    ],
+    "recommended_display": [
+      "AI",
+      "CYB",
+      "SE"
+    ],
+    "orientation": "ext1: ['oriented_cyber'] | ext2: ['oriented_se']",
+    "processes_explored": 65335
+  }
+}

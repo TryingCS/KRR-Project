@@ -1,0 +1,87 @@
+{
+  "_comment": "10 diverse mock student profiles. Grades are on 0-20 (math, algorithmics, programming, networks); skills on 0-10 (problem_solving, coding_practice); interests on 0-10 per major (ai, se, cyber). A null 'interests' object means the interest questionnaire was NOT filled (missing data). S07 carries a second questionnaire ('interests_followup') used by the belief-revision demonstration. Each 'role' field documents which reasoning phenomenon the profile is designed to exhibit.",
+  "students": [
+    {
+      "id": "S01", "name": "Amina Belkacem",
+      "grades": {"math": 17, "algorithmics": 18, "programming": 15, "networks": 12},
+      "skills": {"problem_solving": 9, "coding_practice": 6},
+      "interests": {"ai": 9, "se": 5, "cyber": 3},
+      "role": "Clear AI talent; also administratively eligible for SE; declared dislike of cybersecurity blocks the cyber default.",
+      "expected": "AI recommended by all methods"
+    },
+    {
+      "id": "S02", "name": "Yacine Haddad",
+      "grades": {"math": 12, "algorithmics": 13, "programming": 17, "networks": 10},
+      "skills": {"problem_solving": 7, "coding_practice": 9},
+      "interests": {"ai": 5, "se": 9, "cyber": 4},
+      "role": "Clear software-engineering profile (strong programmer, weak in networks).",
+      "expected": "SE recommended by all methods"
+    },
+    {
+      "id": "S03", "name": "Meriem Saadi",
+      "grades": {"math": 11, "algorithmics": 10, "programming": 12, "networks": 16},
+      "skills": {"problem_solving": 7, "coding_practice": 5},
+      "interests": {"ai": 2, "se": 3, "cyber": 9},
+      "role": "Clear cybersecurity profile; declared dislikes of AI and SE defeat those defaults even if grades rose.",
+      "expected": "Cybersecurity recommended by all methods"
+    },
+    {
+      "id": "S04", "name": "Sofiane Meziane",
+      "grades": {"math": 9, "algorithmics": 8, "programming": 10, "networks": 9},
+      "skills": {"problem_solving": 4, "coding_practice": 4},
+      "interests": {"ai": 6, "se": 5, "cyber": 5},
+      "role": "Weak overall record (average < 10): no major is accessible; all three methods must agree on remediation.",
+      "expected": "needs_remediation, no recommendation"
+    },
+    {
+      "id": "S05", "name": "Lina Zerouki",
+      "grades": {"math": 15, "algorithmics": 16, "programming": 14, "networks": 11},
+      "skills": {"problem_solving": 6, "coding_practice": 5},
+      "interests": null,
+      "role": "MISSING DATA: excellent grades but the interest questionnaire was never filled. Classical logic (closed world) abstains from recommending; default logic presumes; fuzzy logic imputes a neutral interest.",
+      "expected": "classical: eligible but NOT recommended; default: presumed recommendations; fuzzy: ranked scores"
+    },
+    {
+      "id": "S06", "name": "Karim Boudjema",
+      "grades": {"math": 16, "algorithmics": 15, "programming": 14, "networks": 10},
+      "skills": {"problem_solving": 6, "coding_practice": 7},
+      "interests": {"ai": 1, "se": 8, "cyber": 2},
+      "role": "EXCEPTION: excellent AI-related grades but a declared dislike of AI (interest 1/10). The default 'strong in algorithms => suited for AI' must be DEFEATED by this exception, while SE is recommended.",
+      "expected": "suited_ai NOT concluded (default defeated); SE recommended"
+    },
+    {
+      "id": "S07", "name": "Ines Larbi",
+      "grades": {"math": 15, "algorithmics": 17, "programming": 15, "networks": 9},
+      "skills": {"problem_solving": 8, "coding_practice": 6},
+      "interests": null,
+      "interests_followup": {"ai": 2, "se": 8, "cyber": 3},
+      "revision_scenario": true,
+      "role": "BELIEF REVISION: questionnaire missing at first (defaults presume AI aptitude), then the follow-up arrives and reveals a strong dislike of AI and a strong interest in SE. The presumed AI conclusion must be effectively RETRACTED (non-monotonicity), while classical logic keeps it (monotonicity limitation).",
+      "expected": "phase 1: recommended_ai presumed; phase 2: recommended_ai retracted, recommended_se justified"
+    },
+    {
+      "id": "S08", "name": "Omar Cherif",
+      "grades": {"math": 11, "algorithmics": 12, "programming": 13, "networks": 17},
+      "skills": {"problem_solving": 7, "coding_practice": 6},
+      "interests": {"ai": 3, "se": 4, "cyber": 8},
+      "role": "Solid cybersecurity profile with average programming; borderline for the strict SE rule (programming 13 < 14).",
+      "expected": "Cybersecurity recommended"
+    },
+    {
+      "id": "S09", "name": "Nadia Slimani",
+      "grades": {"math": 13, "algorithmics": 14, "programming": 14, "networks": 13},
+      "skills": {"problem_solving": 6, "coding_practice": 6},
+      "interests": {"ai": 6, "se": 6, "cyber": 6},
+      "role": "BORDERLINE everywhere: math 13 misses the crisp AI threshold by 1 point, interests and skills are 6 (< 7). Crisp logic produces threshold artefacts; fuzzy logic produces gradual scores; default logic presumes aptitude without recommending.",
+      "expected": "classical: eligible SE only, no recommendation; default: suited_ai + suited_se presumed; fuzzy: medium scores on all majors"
+    },
+    {
+      "id": "S10", "name": "Riad Amrani",
+      "grades": {"math": 14, "algorithmics": 14, "programming": 15, "networks": 15},
+      "skills": {"problem_solving": 8, "coding_practice": 8},
+      "interests": {"ai": 5, "se": 7, "cyber": 7},
+      "role": "AMBIGUOUS PROFILE: strong everywhere with EQUAL declared interests in SE and Cybersecurity (7 = 7). Default logic represents this hesitation as TWO extensions (Nixon-diamond pattern), fuzzy logic gives close scores, classical logic recommends several majors without being able to rank them.",
+      "expected": "2 default extensions (oriented_se XOR oriented_cyber); all majors recommended classically"
+    }
+  ]
+}

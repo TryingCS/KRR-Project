@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="4th year Ingéniorat IA — University of Guelma, 2026/2027" />
+  <title>RCR Orientation System</title>
+  <style>
+/* Print stylesheet for the RCR report (A4, wkhtmltopdf) */
+@page {
+  size: A4;
+  margin: 13mm 13mm 14mm 13mm;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "DejaVu Sans", Arial, sans-serif;
+  font-size: 9.7pt;
+  line-height: 1.4;
+  color: #111;
+  max-width: 100%;
+  text-align: justify;
+}
+header#title-block-header {
+  border-bottom: 2.2pt solid #1a5276;
+  margin-bottom: 5pt;
+  padding-bottom: 3pt;
+  text-align: center;
+}
+h1.title {
+  font-size: 15.5pt; color: #1a5276; margin: 0 0 1pt 0; line-height: 1.2;
+}
+p.subtitle { font-size: 10pt; color: #333; margin: 0; font-style: italic; }
+p.author  { font-size: 8.5pt; color: #444; margin: 1pt 0 0 0; }
+p.date    { display: none; }
+h1 {
+  font-size: 11.8pt; color: #1a5276;
+  margin: 9pt 0 3.5pt 0; padding-bottom: 1pt;
+  border-bottom: 0.9pt solid #aed6f1;
+  page-break-after: avoid;
+}
+h2 {
+  font-size: 10.3pt; color: #21618c; margin: 5pt 0 2pt 0;
+  page-break-after: avoid;
+}
+p { margin: 0 0 4.5pt 0; }
+ul, ol { margin: 0 0 3pt 0; padding-left: 13pt; }
+li { margin-bottom: 1pt; }
+strong { color: #000; }
+code {
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 8.5pt; background: #f4f6f7; padding: 0 1pt;
+}
+table {
+  border-collapse: collapse; width: 100%;
+  margin: 2.5pt 0 4pt 0; page-break-inside: avoid;
+  font-size: 8.3pt; line-height: 1.28;
+}
+th {
+  background: #1a5276; color: #fff; padding: 1.6pt 3pt;
+  border: 0.5pt solid #1a5276; text-align: left; font-size: 8.2pt;
+}
+td { padding: 1.4pt 3pt; border: 0.5pt solid #aab7b8; vertical-align: top; }
+tr:nth-child(even) td { background: #f8f9f9; }
+table code { font-size: 7.8pt; background: none; padding: 0; }
+div.fig { text-align: center; margin: 3pt 0 4pt 0; page-break-inside: avoid; }
+div.fig img { width: 88%; }
+div.fig .cap { font-size: 8.2pt; color: #555; font-style: italic; margin-top: 1pt; }
+hr { display: none; }
+
+</style>
+  <link rel="stylesheet" href="print.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">University Orientation System using Classical
+Reasoning, Default Reasoning and Fuzzy Logic</h1>
+<p class="subtitle">Final Project (TP-RCR) — Knowledge Representation
+and Reasoning</p>
+<p class="author">4th year Ingéniorat IA — University of Guelma,
+2026/2027</p>
+</header>
+<h1 id="introduction-and-objective">1. Introduction and objective</h1>
+<p>We build a <strong>University Orientation System</strong> that
+decides, for a student profile (grades, skills, interests), which of
+three majors — <strong>Artificial Intelligence (AI)</strong>,
+<strong>Software Engineering (SE)</strong> and <strong>Cybersecurity
+(CYB)</strong> — are <em>accessible</em> (eligibility) and
+<em>recommended</em> (orientation). The same knowledge base is reasoned
+upon with three methods of the syllabus and the results are
+compared:</p>
+<ol type="1">
+<li><strong>Classical logic</strong> (Chapitre I-A): monotonic deduction
+by forward chaining over Horn clauses;</li>
+<li><strong>Default logic</strong> (Chapitre I-B.2): non-monotonic
+reasoning — Reiter defaults <code>α : β / γ</code>, extension
+computation, defeasible presumptions and effective belief
+retraction;</li>
+<li><strong>Fuzzy logic</strong> (Chapitre III): Mamdani fuzzy inference
+with Low/Medium/High membership functions producing exact suitability
+percentages.</li>
+</ol>
+<p>Everything is implemented in <strong>pure Python 3 (standard library
+only)</strong>: <code>run_all.py</code> executes the five steps and
+writes all logs/JSON to <code>output/</code>; 22 unit tests
+(<code>tests/test_system.py</code>) pin every claim made below, so each
+conclusion is justified by executable code and data.</p>
+<h1 id="step-1-knowledge-modeling">2. Step 1 — Knowledge modeling</h1>
+<h2 id="majors-and-orientation-criteria">2.1 Majors and orientation
+criteria</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Major</th>
+<th>Key subjects</th>
+<th>Accessibility (eligibility)</th>
+<th>Recommendation adds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>AI</strong></td>
+<td>Mathematics, Algorithmics</td>
+<td>algo ≥ 14 <strong>and</strong> math ≥ 14</td>
+<td>declared interest ≥ 7 <strong>or</strong> problem-solving ≥ 7</td>
+</tr>
+<tr class="even">
+<td><strong>SE</strong></td>
+<td>Programming, Algorithmics</td>
+<td>prog ≥ 14 <strong>and</strong> average ≥ 12</td>
+<td>declared interest ≥ 7 <strong>or</strong> coding practice ≥ 7</td>
+</tr>
+<tr class="odd">
+<td><strong>CYB</strong></td>
+<td>Networks, Programming</td>
+<td>networks ≥ 14 <strong>and</strong> average ≥ 12</td>
+<td>declared interest ≥ 7 <strong>or</strong> problem-solving ≥ 7</td>
+</tr>
+</tbody>
+</table>
+<p>Each student is described by <strong>grades</strong> (math,
+algorithmics, programming, networks, on 0–20), <strong>skills</strong>
+(problem_solving, coding_practice, on 0–10) and
+<strong>interests</strong> (ai, se, cyber, on 0–10; the whole
+questionnaire may be <em>missing</em> = <code>null</code>). Thresholds
+(<code>data/criteria.json</code>): high grade ≥ 14, good average ≥ 12,
+low average &lt; 10, low math ≤ 9, strong skill ≥ 7, positive interest ≥
+7, negative interest (dislike) ≤ 3, tie ≥ 7.</p>
+<h2
+id="shared-fact-vocabulary-grounding-predicates-into-propositions">2.2
+Shared fact vocabulary (grounding predicates into propositions)</h2>
+<p><code>src/common.derive_facts()</code> grounds first-order predicates
+on one student into propositional atoms (the fact base
+<strong>W</strong> shared by the classical and default engines):</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Predicate (form)</th>
+<th>Ground atom</th>
+<th>Derived iff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HighAlgo(s), HighMath(s), HighProg(s), HighNet(s)</td>
+<td><code>high_algorithmics</code>, …</td>
+<td>grade ≥ 14</td>
+</tr>
+<tr class="even">
+<td>GoodAvg(s) / LowAvg(s)</td>
+<td><code>good_average</code> / <code>low_average</code></td>
+<td>avg ≥ 12 / avg &lt; 10</td>
+</tr>
+<tr class="odd">
+<td>WeakMath(s)</td>
+<td><code>low_math</code></td>
+<td>math ≤ 9</td>
+</tr>
+<tr class="even">
+<td>StrongPS(s) / StrongCoding(s)</td>
+<td><code>strong_problem_solving</code> /
+<code>strong_coding</code></td>
+<td>skill ≥ 7</td>
+</tr>
+<tr class="odd">
+<td>Interested(s,X) / Dislikes(s,X)</td>
+<td><code>interests_x</code> / <code>dislikes_x</code></td>
+<td>interest ≥ 7 / ≤ 3</td>
+</tr>
+<tr class="even">
+<td>UnknownInterest(s,X)</td>
+<td><code>interest_unknown_x</code></td>
+<td>questionnaire missing for X</td>
+</tr>
+<tr class="odd">
+<td>Tied(s)</td>
+<td><code>tied_se_cyber</code></td>
+<td>interest_se = interest_cyber ≥ 7</td>
+</tr>
+</tbody>
+</table>
+<p>A <strong>missing grade or interest yields no positive/negative atom
+at all</strong>: classical logic then treats it as false (closed world),
+whereas default logic can exploit the explicit
+<code>interest_unknown_x</code> markers. This dual treatment is the
+backbone of the comparison.</p>
+<h2 id="the-ten-student-profiles-datastudents.json">2.3 The ten student
+profiles (<code>data/students.json</code>)</h2>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 10%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 25%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Student</th>
+<th>math</th>
+<th>algo</th>
+<th>prog</th>
+<th>net</th>
+<th>ps</th>
+<th>code</th>
+<th>interests (ai/se/cyb)</th>
+<th>Designed phenomenon</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S01</td>
+<td>Amina Belkacem</td>
+<td>17</td>
+<td>18</td>
+<td>15</td>
+<td>12</td>
+<td>9</td>
+<td>6</td>
+<td>9 / 5 / 3</td>
+<td>clear AI talent, dislikes cyber</td>
+</tr>
+<tr class="even">
+<td>S02</td>
+<td>Yacine Haddad</td>
+<td>12</td>
+<td>13</td>
+<td>17</td>
+<td>10</td>
+<td>7</td>
+<td>9</td>
+<td>5 / 9 / 4</td>
+<td>clear SE profile</td>
+</tr>
+<tr class="odd">
+<td>S03</td>
+<td>Meriem Saadi</td>
+<td>11</td>
+<td>10</td>
+<td>12</td>
+<td>16</td>
+<td>7</td>
+<td>5</td>
+<td>2 / 3 / 9</td>
+<td>clear CYB profile</td>
+</tr>
+<tr class="even">
+<td>S04</td>
+<td>Sofiane Meziane</td>
+<td>9</td>
+<td>8</td>
+<td>10</td>
+<td>9</td>
+<td>4</td>
+<td>4</td>
+<td>6 / 5 / 5</td>
+<td>weak record → remediation</td>
+</tr>
+<tr class="odd">
+<td>S05</td>
+<td>Lina Zerouki</td>
+<td>15</td>
+<td>16</td>
+<td>14</td>
+<td>11</td>
+<td>6</td>
+<td>5</td>
+<td><strong>missing</strong></td>
+<td>missing data: abstain vs presume vs impute</td>
+</tr>
+<tr class="even">
+<td>S06</td>
+<td>Karim Boudjema</td>
+<td>16</td>
+<td>15</td>
+<td>14</td>
+<td>10</td>
+<td>6</td>
+<td>7</td>
+<td>1 / 8 / 2</td>
+<td><strong>exception</strong>: AI grades but hates AI</td>
+</tr>
+<tr class="odd">
+<td>S07</td>
+<td>Ines Larbi</td>
+<td>15</td>
+<td>17</td>
+<td>15</td>
+<td>9</td>
+<td>8</td>
+<td>6</td>
+<td><strong>missing</strong>, then 2 / 8 / 3</td>
+<td><strong>belief revision</strong> (late questionnaire)</td>
+</tr>
+<tr class="even">
+<td>S08</td>
+<td>Omar Cherif</td>
+<td>11</td>
+<td>12</td>
+<td>13</td>
+<td>17</td>
+<td>7</td>
+<td>6</td>
+<td>3 / 4 / 8</td>
+<td>solid CYB, borderline for strict SE</td>
+</tr>
+<tr class="odd">
+<td>S09</td>
+<td>Nadia Slimani</td>
+<td>13</td>
+<td>14</td>
+<td>14</td>
+<td>13</td>
+<td>6</td>
+<td>6</td>
+<td>6 / 6 / 6</td>
+<td><strong>borderline</strong>: threshold artefacts</td>
+</tr>
+<tr class="even">
+<td>S10</td>
+<td>Riad Amrani</td>
+<td>14</td>
+<td>14</td>
+<td>15</td>
+<td>15</td>
+<td>8</td>
+<td>8</td>
+<td>5 / 7 / 7</td>
+<td><strong>ambiguity/tie</strong> SE = CYB</td>
+</tr>
+</tbody>
+</table>
+<h1 id="step-2-classical-logic-reasoning-chapitre-i-a">3. Step 2 —
+Classical logic reasoning (Chapitre I-A)</h1>
+<h2 id="formalization-and-rule-base">3.1 Formalization and rule
+base</h2>
+<p>Knowledge is written as Horn clauses, e.g. C1 in predicate logic
+<code>∀s: EligibleAI(s) ← HighAlgo(s) ∧ HighMath(s)</code>, grounded per
+student into <code>eligible_ai ← high_algorithmics ∧ high_math</code>.
+<code>data/rules_classical.json</code> contains:</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 33%" />
+<col style="width: 16%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Rule</th>
+<th>#</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C1</td>
+<td><code>eligible_ai ← high_algorithmics ∧ high_math</code></td>
+<td>C6</td>
+<td><code>recommended_se ← eligible_se ∧ interests_se</code></td>
+</tr>
+<tr class="even">
+<td>C2</td>
+<td><code>eligible_se ← high_programming ∧ good_average</code></td>
+<td>C7</td>
+<td><code>recommended_se ← eligible_se ∧ strong_coding</code></td>
+</tr>
+<tr class="odd">
+<td>C3</td>
+<td><code>eligible_cyber ← high_networks ∧ good_average</code></td>
+<td>C8</td>
+<td><code>recommended_cyber ← eligible_cyber ∧ interests_cyber</code></td>
+</tr>
+<tr class="even">
+<td>C4</td>
+<td><code>recommended_ai ← eligible_ai ∧ interests_ai</code></td>
+<td>C9</td>
+<td><code>recommended_cyber ← eligible_cyber ∧ strong_problem_solving</code></td>
+</tr>
+<tr class="odd">
+<td>C5</td>
+<td><code>recommended_ai ← eligible_ai ∧ strong_problem_solving</code></td>
+<td>C10</td>
+<td><code>needs_remediation ← low_average</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="deduction-engine">3.2 Deduction engine</h2>
+<p><code>src/classical_logic.py</code> implements <strong>forward
+chaining</strong>: starting from W, any rule whose body is satisfied is
+fired by <em>Modus Ponens</em>, its head accumulates, and passes repeat
+until a <strong>fixpoint</strong>. Properties: sound and complete for
+Horn KBs, terminating (each head is added once), and
+<strong>monotonic</strong> — facts are never removed. Missing data
+follows the <strong>Closed World Assumption</strong> (underivable =
+false). Every firing is traced and <code>explain()</code> rebuilds a
+<strong>justification tree</strong> (and a <em>near-miss</em> analysis
+for non-derived atoms: which body atom was missing).</p>
+<h2 id="results-on-the-10-profiles-extract-of-outputrun_log.txt">3.3
+Results on the 10 profiles (extract of
+<code>output/run_log.txt</code>)</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Student</th>
+<th>Eligible</th>
+<th>Recommended</th>
+<th>Justification highlight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S01</td>
+<td>AI, SE</td>
+<td><strong>AI</strong></td>
+<td>C1+C4: algo 18 ∧ math 17 ∧ interest 9</td>
+</tr>
+<tr class="even">
+<td>S02</td>
+<td>SE</td>
+<td><strong>SE</strong></td>
+<td>C2+C6: prog 17 ∧ avg 13 ∧ interest 9</td>
+</tr>
+<tr class="odd">
+<td>S03</td>
+<td>CYB</td>
+<td><strong>CYB</strong></td>
+<td>C3+C8: net 16 ∧ avg 12.25 ∧ interest 9</td>
+</tr>
+<tr class="even">
+<td>S04</td>
+<td>–</td>
+<td>– (+<code>needs_remediation</code>)</td>
+<td>C10: avg 9 &lt; 10</td>
+</tr>
+<tr class="odd">
+<td>S05</td>
+<td>AI, SE</td>
+<td><strong>– (abstains)</strong></td>
+<td>C4 fails: <code>interests_ai</code> MISSING (questionnaire
+null)</td>
+</tr>
+<tr class="even">
+<td>S06</td>
+<td>AI, SE</td>
+<td><strong>SE</strong></td>
+<td>C4 blocked (interest ai = 1); C6 fires (interest se = 8)</td>
+</tr>
+<tr class="odd">
+<td>S07 (phase 1)</td>
+<td>AI, SE</td>
+<td><strong>AI</strong></td>
+<td>C5 via <code>strong_problem_solving</code> = 8</td>
+</tr>
+<tr class="even">
+<td>S08</td>
+<td>CYB</td>
+<td><strong>CYB</strong></td>
+<td>C3+C8</td>
+</tr>
+<tr class="odd">
+<td>S09</td>
+<td>SE</td>
+<td><strong>– (abstains)</strong></td>
+<td>math 13 &lt; 14 kills C1; interest/skills 6 &lt; 7 kill C4–C9</td>
+</tr>
+<tr class="even">
+<td>S10</td>
+<td>AI, SE, CYB</td>
+<td><strong>AI, SE, CYB</strong></td>
+<td>C5+C6+C8 — three recommendations, no ranking</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Observed limitations.</strong> (i) <em>Abstention on missing
+data</em>: S05 is eligible everywhere her grades allow but never
+recommended — the near-miss trace shows exactly
+<code>interests_ai MISSING</code>. (ii) <em>Threshold artefacts</em>:
+S09 loses AI eligibility for <strong>one point</strong> of mathematics
+(13 vs 14). (iii) <em>Monotonicity</em>: when S07’s follow-up
+questionnaire arrives (she declares interest ai = 2), classical logic
+still recommends AI (via C5) — nothing can be retracted. (iv) <em>No
+ranking</em>: S10 gets three recommendations with no preference
+mechanism.</p>
+<h1 id="step-3-default-logic-reasoning-chapitre-i-b.2">4. Step 3 —
+Default logic reasoning (Chapitre I-B.2)</h1>
+<h2 id="default-theory">4.1 Default theory</h2>
+<p>A Reiter default <code>α : β₁,…,βₙ / γ</code> applies when its
+prerequisite α is believed and each justification βᵢ is
+<em>consistent</em> with the final belief set (“<strong>γ normally
+holds, unless data proves otherwise</strong>”).
+<code>data/rules_default.json</code> defines <strong>8 defaults</strong>
+(≥ 4 required) plus 7 strict rules (S1a…S4, encoded as
+justification-free defaults <code>α : / γ</code> so they hold in every
+extension):</p>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 62%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Default <code>α : β / γ</code></th>
+<th>Reading</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D1</td>
+<td><code>high_algorithmics : ¬dislikes_ai, ¬low_math / suited_ai</code></td>
+<td>strong in algo ⇒ normally suited for AI, <strong>unless</strong>
+declared dislike or critically weak math</td>
+</tr>
+<tr class="even">
+<td>D2</td>
+<td><code>high_programming : ¬dislikes_se / suited_se</code></td>
+<td>strong programmer ⇒ normally suited for SE, unless dislike</td>
+</tr>
+<tr class="odd">
+<td>D3</td>
+<td><code>high_networks : ¬dislikes_cyber / suited_cyber</code></td>
+<td>strong in networks ⇒ normally suited for CYB, unless dislike</td>
+</tr>
+<tr class="even">
+<td>D4a-c</td>
+<td><code>suited_X ∧ interest_unknown_X : ¬dislikes_X / recommended_X, presumed_interest_X</code></td>
+<td><strong>missing questionnaire ⇒ presume a compatible
+interest</strong> and recommend, unless dislike</td>
+</tr>
+<tr class="odd">
+<td>D5a</td>
+<td><code>suited_se ∧ suited_cyber ∧ tied_se_cyber : ¬oriented_se / oriented_cyber</code></td>
+<td>tie ⇒ orient CYB unless oriented SE</td>
+</tr>
+<tr class="even">
+<td>D5b</td>
+<td><code>suited_se ∧ suited_cyber ∧ tied_se_cyber : ¬oriented_cyber / oriented_se</code></td>
+<td>tie ⇒ orient SE unless oriented CYB</td>
+</tr>
+</tbody>
+</table>
+<p>Strict rules turn aptitude into recommendation on <em>declared</em>
+evidence, e.g. S1a
+<code>suited_ai ∧ interests_ai : / recommended_ai</code>, S1b
+<code>suited_ai ∧ strong_problem_solving : / recommended_ai</code> (idem
+S2a/S2b for SE, S3a/S3b for CYB), S4
+<code>low_average : / needs_remediation</code>.</p>
+<h2 id="extension-computation">4.2 Extension computation</h2>
+<p><code>src/default_logic.py</code> computes <strong>all
+extensions</strong> by generate-and-test over <em>processes</em> (§2.3
+“Calcul des extensions” of the syllabus): a DFS appends only defaults
+applicable to the accumulated belief set (early pruning), maximal
+processes are validated against their <strong>final</strong> belief set
+(prerequisites still believed, justifications still consistent), and
+duplicates are merged. Example sizes: S09 → 5 processes explored → 1
+extension; <strong>S10 → 65 335 processes → 2 extensions</strong>. Each
+conclusion keeps its <em>support</em> (which defaults produced it),
+which is what makes retractions and re-justifications observable.</p>
+<h2 id="results-exception-and-effective-belief-revision">4.3 Results,
+exception, and effective belief revision</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Student</th>
+<th>#Ext</th>
+<th>Suited (presumed aptitude)</th>
+<th>Recommended</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S01</td>
+<td>1</td>
+<td>AI, SE</td>
+<td>AI</td>
+<td>D3 blocked twice (net 12 &lt; 14; <code>dislikes_cyber</code>)</td>
+</tr>
+<tr class="even">
+<td>S02</td>
+<td>1</td>
+<td>SE</td>
+<td>SE</td>
+<td>aligned with classical</td>
+</tr>
+<tr class="odd">
+<td>S03</td>
+<td>1</td>
+<td>CYB</td>
+<td>CYB</td>
+<td>D1/D2 defeated by <code>dislikes_ai</code>,
+<code>dislikes_se</code></td>
+</tr>
+<tr class="even">
+<td>S04</td>
+<td>1</td>
+<td>–</td>
+<td>– (+ remediation)</td>
+<td>S4 strict</td>
+</tr>
+<tr class="odd">
+<td>S05</td>
+<td>1</td>
+<td>AI, SE</td>
+<td><strong>AI*, SE*</strong></td>
+<td>* presumed by D4a/D4b — classical abstained</td>
+</tr>
+<tr class="even">
+<td>S06</td>
+<td>1</td>
+<td>SE</td>
+<td>SE</td>
+<td><strong>exception</strong>: D1 defeated by <code>dislikes_ai</code>
+despite algo 15, math 16</td>
+</tr>
+<tr class="odd">
+<td>S07 ph.1</td>
+<td>1</td>
+<td>AI, SE</td>
+<td>AI, SE*</td>
+<td>AI presumed (D4a) <em>and</em> strict (S1b); SE presumed (D4b)</td>
+</tr>
+<tr class="even">
+<td>S08</td>
+<td>1</td>
+<td>CYB</td>
+<td>CYB</td>
+<td>aligned with classical</td>
+</tr>
+<tr class="odd">
+<td>S09</td>
+<td>1</td>
+<td><strong>AI, SE</strong></td>
+<td>–</td>
+<td>presumes AI aptitude although crisp C1 rejected it (math 13)</td>
+</tr>
+<tr class="even">
+<td>S10</td>
+<td><strong>2</strong></td>
+<td>AI, SE, CYB</td>
+<td>AI, SE, CYB</td>
+<td>E1 concludes <code>oriented_cyber</code> (D5a), E2
+<code>oriented_se</code> (D5b) — Nixon-diamond ambiguity</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exception (required).</strong> For S06 the fact
+<code>dislikes_ai ∈ W</code> (interest ai = 1 ≤ 3) makes D1’s
+justification <code>¬dislikes_ai</code> inconsistent:
+<code>suited_ai</code> is <strong>never concluded</strong>, although the
+student has the best AI grades of the cohort. The same mechanism defeats
+D1/D2/D3 for S03.</p>
+<p><strong>Belief revision (required) — S07, two phases.</strong> Phase
+1: questionnaire missing ⇒ W₁ ⊇ {high_algorithmics, high_math,
+high_programming, strong_problem_solving, interest_unknown_ai/se/cyber};
+the single extension concludes {suited_ai, suited_se, recommended_ai,
+presumed_interest_ai, recommended_se, presumed_interest_se}. Phase 2:
+the follow-up arrives (ai = 2, se = 8, cyber = 3) ⇒ W₂ = W₁ ∪
+{dislikes_ai, interests_se, dislikes_cyber}  {interest_unknown_*}.
+Re-running the engine:</p>
+<ul>
+<li><strong>RETRACTED</strong>: <code>suited_ai</code>,
+<code>recommended_ai</code>, <code>presumed_interest_ai</code>,
+<code>presumed_interest_se</code> (D1 defeated by
+<code>dislikes_ai</code>; D4a/D4b lose their prerequisites);</li>
+<li><strong>KEPT but re-justified</strong>: <code>recommended_se</code>
+— support switches from presumption <strong>D4b</strong> to strict
+evidence <strong>S2a</strong> (<code>interests_se</code> = 8 now
+declared);</li>
+<li>Formally <strong>Cn(W₁) ⊄ Cn(W₂)</strong>: non-monotonicity is
+<em>effective</em>, whereas classical logic keeps recommending AI to S07
+forever (monotonicity check <code>derived(W₁) ⊆ derived(W₂)</code> =
+True in <code>output/revision_demo.json</code>).</li>
+</ul>
+<p><strong>Comparison with the classical conclusions.</strong> On
+complete, unambiguous profiles (S01–S04, S08) both logics agree. They
+diverge exactly where knowledge is incomplete or exceptional: missing
+data (S05, S07-ph1: classical <em>abstains</em>, defaults
+<em>presume</em> — traceably, with <code>presumed_interest_*</code>),
+exceptions (S06: defaults <em>refuse</em> an aptitude that grades alone
+would suggest), borderline values (S09: D1 presumes
+<code>suited_ai</code> where the crisp conjunction C1 rejects), and
+ambiguity (S10: default logic <em>represents</em> the hesitation as two
+extensions instead of hiding it).</p>
+<h1 id="step-4-fuzzy-logic-reasoning-chapitre-iii">5. Step 4 — Fuzzy
+logic reasoning (Chapitre III)</h1>
+<h2 id="fuzzy-variables-and-membership-functions">5.1 Fuzzy variables
+and membership functions</h2>
+<p><code>data/fuzzy_config.json</code> defines four linguistic variables
+(figure: <code>output/figures/membership_functions.svg</code>). The
+three inputs form <strong>Ruspini partitions</strong>
+(µ_Low+µ_Medium+µ_High = 1 at every point — verified by unit test):</p><div class="fig"><img src="../output/figures/membership_functions.svg" alt="Membership functions"><div class="cap">Figure 1 — Membership functions of the four linguistic variables (generated by src/fuzzy_logic.render_membership_svg)</div></div>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Domain</th>
+<th>Low</th>
+<th>Medium</th>
+<th>High</th>
+<th>VeryHigh</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Core grade</strong> (key subject)</td>
+<td>[0,20]</td>
+<td>trap(0,0,8,12)</td>
+<td>tri(8,12,16)</td>
+<td>trap(12,16,20,20)</td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td><strong>Skill grade</strong> (support subject)</td>
+<td>[0,20]</td>
+<td>trap(0,0,8,12)</td>
+<td>tri(8,12,16)</td>
+<td>trap(12,16,20,20)</td>
+<td>–</td>
+</tr>
+<tr class="odd">
+<td><strong>Interest</strong></td>
+<td>[0,10]</td>
+<td>trap(0,0,3,5)</td>
+<td>tri(3,5,7)</td>
+<td>trap(5,7,10,10)</td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td><strong>Suitability</strong> (output)</td>
+<td>[0,100] %</td>
+<td>trap(0,0,30,45)</td>
+<td>tri(30,45,60)</td>
+<td>tri(50,70,90)</td>
+<td>trap(75,90,100,100)</td>
+</tr>
+</tbody>
+</table>
+<p>Per major the same rule base is instantiated by an input mapping:
+<strong>AI</strong> (core = math, skill = algorithmics, interest = ai),
+<strong>SE</strong> (core = programming, skill = algorithmics, interest
+= se), <strong>CYB</strong> (core = networks, skill = programming,
+interest = cyber).</p>
+<h2 id="fuzzy-rule-base-13-rules-6-required">5.2 Fuzzy rule base (13
+rules ≥ 6 required)</h2>
+<p>FR1 Core H ∧ Skill H → High · FR2 Core H ∧ Int H → High · FR3 Core M
+∧ Skill M → Medium · FR4 Skill H ∧ Int M → High <em>(the TP
+example)</em> · FR5 Core L → Low · FR6 Skill L ∧ Int L → Low · FR7 Core
+M ∧ Int H → Medium · FR8 Core H ∧ Skill L → Medium · FR9 Core L ∧ Skill
+H → Low · FR10 Core H ∧ Int L → Medium · FR11 Int L ∧ Skill H → Low ·
+FR12 Core M ∧ Skill L → Low · FR13 Core H ∧ Skill H ∧ Int H →
+VeryHigh.</p>
+<p>FR9/FR11 encode “talent cannot compensate a failing core subject /
+absent motivation”; FR10 lets grades partially compensate low
+motivation; FR13 distinguishes full excellence (it removes the
+saturation artefact of a single High shoulder). The rule base is
+<strong>complete</strong>: every input combination fires at least one
+rule (checked by enumeration over the partitions).</p>
+<h2 id="inference-and-exact-suitability-percentages">5.3 Inference and
+exact suitability percentages</h2>
+<p><code>src/fuzzy_logic.py</code> implements the Mamdani pipeline:
+fuzzification → rule evaluation with <strong>AND = min</strong> → firing
+strengths αᵣ → aggregation <strong>µ_agg(y) = maxᵣ min(αᵣ,
+µ_Bᵣ(y))</strong> → <strong>centroid defuzzification</strong> (numerical
+integration, 401 samples). A missing interest is imputed to the neutral
+value <strong>5.0</strong> (full Medium membership) and flagged in the
+trace. Decision rule: the top major is recommended iff its score ≥ 60
+%.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Student</th>
+<th>AI %</th>
+<th>SE %</th>
+<th>CYB %</th>
+<th>Fuzzy decision</th>
+<th>Classical said</th>
+<th>Default said</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S01</td>
+<td><strong>79.5</strong></td>
+<td>70.0</td>
+<td>23.2</td>
+<td>AI</td>
+<td>AI</td>
+<td>AI</td>
+</tr>
+<tr class="even">
+<td>S02</td>
+<td>54.5</td>
+<td><strong>73.2</strong></td>
+<td>41.4</td>
+<td>SE</td>
+<td>SE</td>
+<td>SE</td>
+</tr>
+<tr class="odd">
+<td>S03</td>
+<td>28.1</td>
+<td>28.1</td>
+<td><strong>70.0</strong></td>
+<td>CYB</td>
+<td>CYB</td>
+<td>CYB</td>
+</tr>
+<tr class="even">
+<td>S04</td>
+<td>23.2</td>
+<td>20.6</td>
+<td>23.2</td>
+<td>none (&lt; 60 %)</td>
+<td>remediation</td>
+<td>remediation</td>
+</tr>
+<tr class="odd">
+<td>S05</td>
+<td><strong>70.0</strong></td>
+<td><strong>70.0</strong></td>
+<td>48.9</td>
+<td>AI = SE (tie)</td>
+<td>abstains</td>
+<td>AI*, SE*</td>
+</tr>
+<tr class="even">
+<td>S06</td>
+<td>40.4</td>
+<td><strong>67.1</strong></td>
+<td>28.1</td>
+<td>SE</td>
+<td>SE</td>
+<td>SE</td>
+</tr>
+<tr class="odd">
+<td>S07 ph1</td>
+<td><strong>70.0</strong></td>
+<td><strong>70.0</strong></td>
+<td>39.6</td>
+<td>AI = SE (tie)</td>
+<td>AI</td>
+<td>AI, SE*</td>
+</tr>
+<tr class="even">
+<td>S08</td>
+<td>34.4</td>
+<td>45.0</td>
+<td><strong>73.2</strong></td>
+<td>CYB</td>
+<td>CYB</td>
+<td>CYB</td>
+</tr>
+<tr class="odd">
+<td>S09</td>
+<td>63.4</td>
+<td><strong>67.1</strong></td>
+<td>63.4</td>
+<td>SE</td>
+<td>abstains</td>
+<td>– (suited AI, SE)</td>
+</tr>
+<tr class="even">
+<td>S10</td>
+<td>59.5</td>
+<td>70.8</td>
+<td><strong>73.2</strong></td>
+<td>CYB</td>
+<td>3 recs, no rank</td>
+<td>2 extensions</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Worked example (S09 → AI, from
+<code>output/fuzzy_results.json</code>).</strong> Inputs: core = math 13
+(µ_M = 0.75, µ_H = 0.25), skill = algo 14 (µ_M = 0.5, µ_H = 0.5),
+interest = 6 (µ_M = 0.5, µ_H = 0.5). Fired rules: FR3 α = 0.5 → Medium;
+FR4 α = 0.5 → High; FR7 α = 0.5 → Medium; FR1 α = 0.25 → High; FR2 α =
+0.25 → High; FR13 α = 0.25 → VeryHigh. Aggregation + centroid ⇒
+<strong>63.4 %</strong>: where the crisp threshold (math 13 &lt; 14)
+rejected AI outright, fuzzy logic answers “moderately suited” —
+gradation instead of a cliff. Revision (S07): when interests (2/8/3)
+replace the neutral imputation, AI falls 70.0 % → <strong>37.4
+%</strong> while SE rises 70.0 % → <strong>73.2 %</strong>: revision by
+smooth re-evaluation, without symbolic retraction.</p>
+<h1 id="step-5-comparative-analysis">6. Step 5 — Comparative
+analysis</h1>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Classical logic</th>
+<th>Default logic</th>
+<th>Fuzzy logic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Knowledge form</td>
+<td>Horn clauses (crisp True/False)</td>
+<td>Defaults α:β/γ + strict rules</td>
+<td>Fuzzy rules over linguistic terms</td>
+</tr>
+<tr class="even">
+<td>Truth values</td>
+<td>2-valued</td>
+<td>2-valued but <em>provisional</em></td>
+<td>degrees µ ∈ [0,1]</td>
+</tr>
+<tr class="odd">
+<td>Mechanism</td>
+<td>Forward chaining, Modus Ponens, fixpoint</td>
+<td>Extension computation (processes), justification consistency</td>
+<td>Mamdani: min/max + centroid</td>
+</tr>
+<tr class="even">
+<td><strong>Missing data</strong></td>
+<td>CWA ⇒ <strong>abstention</strong> (S05: eligible, never
+recommended)</td>
+<td><strong>Presumption</strong> D4a-c ⇒ actionable answer, traceable
+(<code>presumed_interest_*</code>) and revocable</td>
+<td><strong>Neutral imputation</strong> (interest = 5 ⇒ Medium) ⇒ always
+a ranked score</td>
+</tr>
+<tr class="odd">
+<td><strong>Exceptions</strong></td>
+<td>Cannot express “normally”; strict rules only</td>
+<td>Justifications <strong>defeat</strong> defaults (S06:
+<code>dislikes_ai</code> blocks D1)</td>
+<td>No exceptions; counter-evidence just lowers the score smoothly (S06
+AI 40.4 % vs ≈70 % potential)</td>
+</tr>
+<tr class="even">
+<td><strong>Revision</strong></td>
+<td><strong>Monotonic</strong> — never retracts (S07 keeps AI
+recommendation despite declared dislike)</td>
+<td><strong>Non-monotonic</strong> — effective retraction (S07:
+<code>suited_ai</code>, <code>recommended_ai</code> withdrawn;
+<code>recommended_se</code> re-justified D4b→S2a)</td>
+<td>Re-evaluation: scores move continuously (AI 70→37.4 %)</td>
+</tr>
+<tr class="odd">
+<td><strong>Ambiguity/ties</strong></td>
+<td>Recommends everything that matches, no ranking (S10)</td>
+<td><strong>Multiple extensions</strong> make the hesitation explicit
+(S10: 2 extensions; choice = human decision)</td>
+<td>Close scores give a soft quantitative tie-break (73.2 vs 70.8 vs
+59.5)</td>
+</tr>
+<tr class="even">
+<td><strong>Imprecision</strong></td>
+<td>Crisp thresholds ⇒ artefacts at boundaries (S09: one point of math
+flips eligibility)</td>
+<td>Crisp, but presumptions soften rejections (S09:
+<code>suited_ai</code> presumed)</td>
+<td>Native: gradual membership (µ_High(13) = 0.25)</td>
+</tr>
+<tr class="odd">
+<td>Explanation</td>
+<td>Proof trees + near-miss analysis</td>
+<td>Supports per conclusion, applied defaults per extension</td>
+<td>Fired rules with α, membership degrees</td>
+</tr>
+<tr class="even">
+<td>Cost / complexity</td>
+<td>O(rules × passes) — trivial</td>
+<td>Exponential in theory (S10: 65 335 processes); fine here</td>
+<td>O(rules × samples) — trivial</td>
+</tr>
+<tr class="odd">
+<td>Main pros</td>
+<td>Simple, sound &amp; complete, fully explainable</td>
+<td>Commonsense “unless” reasoning; revisable; represents
+alternatives</td>
+<td>Robust to imprecision; always ranks; tolerates missing values</td>
+</tr>
+<tr class="even">
+<td>Main cons</td>
+<td>Brittle thresholds; abstains; cannot retract or rank</td>
+<td>Extension multiplicity costly; conclusions hard to rank; choice
+among defaults is a design decision</td>
+<td>Scores not symbolic — no explicit retraction; MF/rule design is
+subjective</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Synthesis.</strong> The three approaches are complementary
+rather than competing: classical logic gives the <em>administrative
+floor</em> (auditable eligibility), default logic adds <em>commonsense
+flexibility</em> (presume, defeat, revise — the only one that retracts
+S07’s recommendation when the exception arrives), and fuzzy logic
+provides the <em>graded ranking</em> the other two lack (it separates
+S10’s three-way tie and rescues S09 from a one-point rejection). A
+realistic orientation service would pipeline them: crisp eligibility →
+defeasible recommendation with revision → fuzzy scoring for the final
+ranking, with the symbolic traces as the explanation layer.</p>
+<h1 id="conclusion-and-validation-map">7. Conclusion and validation
+map</h1>
+<p>All five TP steps are implemented and exercised on the 10 profiles:
+(1) a shared knowledge model with three majors, ten profiles and an
+explicit fact vocabulary; (2) a classical forward-chaining engine whose
+every conclusion (and refusal) is justified by a proof/near-miss trace;
+(3) a default theory with 8 defaults, full extension computation, one
+effective exception (S06) and one effective retraction (S07), plus a
+two-extension ambiguity case (S10); (4) a from-scratch Mamdani system
+with 4 variables, 13 rules and centroid-defuzzified percentages; (5) the
+comparative analysis above, grounded in the observed divergences. For
+the validation session: <code>output/run_log.txt</code> and the four
+JSON result files contain every number quoted here, and
+<code>python3 -m unittest discover -s tests</code> (22 tests, all green)
+re-proves each claim directly from the code and data.</p>
+</body>
+</html>

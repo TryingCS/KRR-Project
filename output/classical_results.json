@@ -1,0 +1,453 @@
+{
+  "S01": {
+    "facts": [
+      "dislikes_cyber",
+      "good_average",
+      "high_algorithmics",
+      "high_math",
+      "high_programming",
+      "interests_ai",
+      "strong_problem_solving"
+    ],
+    "derived": [
+      "eligible_ai",
+      "eligible_se",
+      "recommended_ai"
+    ],
+    "eligible": [
+      "AI",
+      "SE"
+    ],
+    "recommended": [
+      "AI"
+    ],
+    "other": [],
+    "trace": [
+      "[C1] high_algorithmics AND high_math -> eligible_ai  (pass 1)",
+      "[C2] high_programming AND good_average -> eligible_se  (pass 1)",
+      "[C4] eligible_ai AND interests_ai -> recommended_ai  (pass 1)"
+    ],
+    "explanations": {
+      "recommended_ai": [
+        "recommended_ai   [rule C4: eligible_ai AND interests_ai -> recommended_ai]",
+        "    eligible_ai   [rule C1: high_algorithmics AND high_math -> eligible_ai]",
+        "        high_algorithmics   [FACT from the student profile]",
+        "        high_math   [FACT from the student profile]",
+        "    interests_ai   [FACT from the student profile]"
+      ],
+      "recommended_se": [
+        "recommended_se   [NOT DERIVED - false under the CWA]",
+        "    rule C6 could derive it, but: [eligible_se OK, interests_se MISSING]",
+        "    rule C7 could derive it, but: [eligible_se OK, strong_coding MISSING]"
+      ],
+      "recommended_cyber": [
+        "recommended_cyber   [NOT DERIVED - false under the CWA]",
+        "    rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]",
+        "    rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving OK]"
+      ]
+    }
+  },
+  "S02": {
+    "facts": [
+      "good_average",
+      "high_programming",
+      "interests_se",
+      "strong_coding",
+      "strong_problem_solving"
+    ],
+    "derived": [
+      "eligible_se",
+      "recommended_se"
+    ],
+    "eligible": [
+      "SE"
+    ],
+    "recommended": [
+      "SE"
+    ],
+    "other": [],
+    "trace": [
+      "[C2] high_programming AND good_average -> eligible_se  (pass 1)",
+      "[C6] eligible_se AND interests_se -> recommended_se  (pass 1)"
+    ],
+    "explanations": {
+      "recommended_ai": [
+        "recommended_ai   [NOT DERIVED - false under the CWA]",
+        "    rule C4 could derive it, but: [eligible_ai MISSING, interests_ai MISSING]",
+        "    rule C5 could derive it, but: [eligible_ai MISSING, strong_problem_solving OK]"
+      ],
+      "recommended_se": [
+        "recommended_se   [rule C6: eligible_se AND interests_se -> recommended_se]",
+        "    eligible_se   [rule C2: high_programming AND good_average -> eligible_se]",
+        "        high_programming   [FACT from the student profile]",
+        "        good_average   [FACT from the student profile]",
+        "    interests_se   [FACT from the student profile]"
+      ],
+      "recommended_cyber": [
+        "recommended_cyber   [NOT DERIVED - false under the CWA]",
+        "    rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]",
+        "    rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving OK]"
+      ]
+    }
+  },
+  "S03": {
+    "facts": [
+      "dislikes_ai",
+      "dislikes_se",
+      "good_average",
+      "high_networks",
+      "interests_cyber",
+      "strong_problem_solving"
+    ],
+    "derived": [
+      "eligible_cyber",
+      "recommended_cyber"
+    ],
+    "eligible": [
+      "CYB"
+    ],
+    "recommended": [
+      "CYB"
+    ],
+    "other": [],
+    "trace": [
+      "[C3] high_networks AND good_average -> eligible_cyber  (pass 1)",
+      "[C8] eligible_cyber AND interests_cyber -> recommended_cyber  (pass 1)"
+    ],
+    "explanations": {
+      "recommended_ai": [
+        "recommended_ai   [NOT DERIVED - false under the CWA]",
+        "    rule C4 could derive it, but: [eligible_ai MISSING, interests_ai MISSING]",
+        "    rule C5 could derive it, but: [eligible_ai MISSING, strong_problem_solving OK]"
+      ],
+      "recommended_se": [
+        "recommended_se   [NOT DERIVED - false under the CWA]",
+        "    rule C6 could derive it, but: [eligible_se MISSING, interests_se MISSING]",
+        "    rule C7 could derive it, but: [eligible_se MISSING, strong_coding MISSING]"
+      ],
+      "recommended_cyber": [
+        "recommended_cyber   [rule C8: eligible_cyber AND interests_cyber -> recommended_cyber]",
+        "    eligible_cyber   [rule C3: high_networks AND good_average -> eligible_cyber]",
+        "        high_networks   [FACT from the student profile]",
+        "        good_average   [FACT from the student profile]",
+        "    interests_cyber   [FACT from the student profile]"
+      ]
+    }
+  },
+  "S04": {
+    "facts": [
+      "low_average",
+      "low_math"
+    ],
+    "derived": [
+      "needs_remediation"
+    ],
+    "eligible": [],
+    "recommended": [],
+    "other": [
+      "needs_remediation"
+    ],
+    "trace": [
+      "[C10] low_average -> needs_remediation  (pass 1)"
+    ],
+    "explanations": {
+      "recommended_ai": [
+        "recommended_ai   [NOT DERIVED - false under the CWA]",
+        "    rule C4 could derive it, but: [eligible_ai MISSING, interests_ai MISSING]",
+        "    rule C5 could derive it, but: [eligible_ai MISSING, strong_problem_solving MISSING]"
+      ],
+      "recommended_se": [
+        "recommended_se   [NOT DERIVED - false under the CWA]",
+        "    rule C6 could derive it, but: [eligible_se MISSING, interests_se MISSING]",
+        "    rule C7 could derive it, but: [eligible_se MISSING, strong_coding MISSING]"
+      ],
+      "recommended_cyber": [
+        "recommended_cyber   [NOT DERIVED - false under the CWA]",
+        "    rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]",
+        "    rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving MISSING]"
+      ]
+    }
+  },
+  "S05": {
+    "facts": [
+      "good_average",
+      "high_algorithmics",
+      "high_math",
+      "high_programming",
+      "interest_unknown_ai",
+      "interest_unknown_cyber",
+      "interest_unknown_se"
+    ],
+    "derived": [
+      "eligible_ai",
+      "eligible_se"
+    ],
+    "eligible": [
+      "AI",
+      "SE"
+    ],
+    "recommended": [],
+    "other": [],
+    "trace": [
+      "[C1] high_algorithmics AND high_math -> eligible_ai  (pass 1)",
+      "[C2] high_programming AND good_average -> eligible_se  (pass 1)"
+    ],
+    "explanations": {
+      "recommended_ai": [
+        "recommended_ai   [NOT DERIVED - false under the CWA]",
+        "    rule C4 could derive it, but: [eligible_ai OK, interests_ai MISSING]",
+        "    rule C5 could derive it, but: [eligible_ai OK, strong_problem_solving MISSING]"
+      ],
+      "recommended_se": [
+        "recommended_se   [NOT DERIVED - false under the CWA]",
+        "    rule C6 could derive it, but: [eligible_se OK, interests_se MISSING]",
+        "    rule C7 could derive it, but: [eligible_se OK, strong_coding MISSING]"
+      ],
+      "recommended_cyber": [
+        "recommended_cyber   [NOT DERIVED - false under the CWA]",
+        "    rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]",
+        "    rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving MISSING]"
+      ]
+    }
+  },
+  "S06": {
+    "facts": [
+      "dislikes_ai",
+      "dislikes_cyber",
+      "good_average",
+      "high_algorithmics",
+      "high_math",
+      "high_programming",
+      "interests_se",
+      "strong_coding"
+    ],
+    "derived": [
+      "eligible_ai",
+      "eligible_se",
+      "recommended_se"
+    ],
+    "eligible": [
+      "AI",
+      "SE"
+    ],
+    "recommended": [
+      "SE"
+    ],
+    "other": [],
+    "trace": [
+      "[C1] high_algorithmics AND high_math -> eligible_ai  (pass 1)",
+      "[C2] high_programming AND good_average -> eligible_se  (pass 1)",
+      "[C6] eligible_se AND interests_se -> recommended_se  (pass 1)"
+    ],
+    "explanations": {
+      "recommended_ai": [
+        "recommended_ai   [NOT DERIVED - false under the CWA]",
+        "    rule C4 could derive it, but: [eligible_ai OK, interests_ai MISSING]",
+        "    rule C5 could derive it, but: [eligible_ai OK, strong_problem_solving MISSING]"
+      ],
+      "recommended_se": [
+        "recommended_se   [rule C6: eligible_se AND interests_se -> recommended_se]",
+        "    eligible_se   [rule C2: high_programming AND good_average -> eligible_se]",
+        "        high_programming   [FACT from the student profile]",
+        "        good_average   [FACT from the student profile]",
+        "    interests_se   [FACT from the student profile]"
+      ],
+      "recommended_cyber": [
+        "recommended_cyber   [NOT DERIVED - false under the CWA]",
+        "    rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]",
+        "    rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving MISSING]"
+      ]
+    }
+  },
+  "S07": {
+    "facts": [
+      "good_average",
+      "high_algorithmics",
+      "high_math",
+      "high_programming",
+      "interest_unknown_ai",
+      "interest_unknown_cyber",
+      "interest_unknown_se",
+      "strong_problem_solving"
+    ],
+    "derived": [
+      "eligible_ai",
+      "eligible_se",
+      "recommended_ai"
+    ],
+    "eligible": [
+      "AI",
+      "SE"
+    ],
+    "recommended": [
+      "AI"
+    ],
+    "other": [],
+    "trace": [
+      "[C1] high_algorithmics AND high_math -> eligible_ai  (pass 1)",
+      "[C2] high_programming AND good_average -> eligible_se  (pass 1)",
+      "[C5] eligible_ai AND strong_problem_solving -> recommended_ai  (pass 1)"
+    ],
+    "explanations": {
+      "recommended_ai": [
+        "recommended_ai   [rule C5: eligible_ai AND strong_problem_solving -> recommended_ai]",
+        "    eligible_ai   [rule C1: high_algorithmics AND high_math -> eligible_ai]",
+        "        high_algorithmics   [FACT from the student profile]",
+        "        high_math   [FACT from the student profile]",
+        "    strong_problem_solving   [FACT from the student profile]"
+      ],
+      "recommended_se": [
+        "recommended_se   [NOT DERIVED - false under the CWA]",
+        "    rule C6 could derive it, but: [eligible_se OK, interests_se MISSING]",
+        "    rule C7 could derive it, but: [eligible_se OK, strong_coding MISSING]"
+      ],
+      "recommended_cyber": [
+        "recommended_cyber   [NOT DERIVED - false under the CWA]",
+        "    rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]",
+        "    rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving OK]"
+      ]
+    }
+  },
+  "S08": {
+    "facts": [
+      "dislikes_ai",
+      "good_average",
+      "high_networks",
+      "interests_cyber",
+      "strong_problem_solving"
+    ],
+    "derived": [
+      "eligible_cyber",
+      "recommended_cyber"
+    ],
+    "eligible": [
+      "CYB"
+    ],
+    "recommended": [
+      "CYB"
+    ],
+    "other": [],
+    "trace": [
+      "[C3] high_networks AND good_average -> eligible_cyber  (pass 1)",
+      "[C8] eligible_cyber AND interests_cyber -> recommended_cyber  (pass 1)"
+    ],
+    "explanations": {
+      "recommended_ai": [
+        "recommended_ai   [NOT DERIVED - false under the CWA]",
+        "    rule C4 could derive it, but: [eligible_ai MISSING, interests_ai MISSING]",
+        "    rule C5 could derive it, but: [eligible_ai MISSING, strong_problem_solving OK]"
+      ],
+      "recommended_se": [
+        "recommended_se   [NOT DERIVED - false under the CWA]",
+        "    rule C6 could derive it, but: [eligible_se MISSING, interests_se MISSING]",
+        "    rule C7 could derive it, but: [eligible_se MISSING, strong_coding MISSING]"
+      ],
+      "recommended_cyber": [
+        "recommended_cyber   [rule C8: eligible_cyber AND interests_cyber -> recommended_cyber]",
+        "    eligible_cyber   [rule C3: high_networks AND good_average -> eligible_cyber]",
+        "        high_networks   [FACT from the student profile]",
+        "        good_average   [FACT from the student profile]",
+        "    interests_cyber   [FACT from the student profile]"
+      ]
+    }
+  },
+  "S09": {
+    "facts": [
+      "good_average",
+      "high_algorithmics",
+      "high_programming"
+    ],
+    "derived": [
+      "eligible_se"
+    ],
+    "eligible": [
+      "SE"
+    ],
+    "recommended": [],
+    "other": [],
+    "trace": [
+      "[C2] high_programming AND good_average -> eligible_se  (pass 1)"
+    ],
+    "explanations": {
+      "recommended_ai": [
+        "recommended_ai   [NOT DERIVED - false under the CWA]",
+        "    rule C4 could derive it, but: [eligible_ai MISSING, interests_ai MISSING]",
+        "    rule C5 could derive it, but: [eligible_ai MISSING, strong_problem_solving MISSING]"
+      ],
+      "recommended_se": [
+        "recommended_se   [NOT DERIVED - false under the CWA]",
+        "    rule C6 could derive it, but: [eligible_se OK, interests_se MISSING]",
+        "    rule C7 could derive it, but: [eligible_se OK, strong_coding MISSING]"
+      ],
+      "recommended_cyber": [
+        "recommended_cyber   [NOT DERIVED - false under the CWA]",
+        "    rule C8 could derive it, but: [eligible_cyber MISSING, interests_cyber MISSING]",
+        "    rule C9 could derive it, but: [eligible_cyber MISSING, strong_problem_solving MISSING]"
+      ]
+    }
+  },
+  "S10": {
+    "facts": [
+      "good_average",
+      "high_algorithmics",
+      "high_math",
+      "high_networks",
+      "high_programming",
+      "interests_cyber",
+      "interests_se",
+      "strong_coding",
+      "strong_problem_solving",
+      "tied_se_cyber"
+    ],
+    "derived": [
+      "eligible_ai",
+      "eligible_cyber",
+      "eligible_se",
+      "recommended_ai",
+      "recommended_cyber",
+      "recommended_se"
+    ],
+    "eligible": [
+      "AI",
+      "CYB",
+      "SE"
+    ],
+    "recommended": [
+      "AI",
+      "CYB",
+      "SE"
+    ],
+    "other": [],
+    "trace": [
+      "[C1] high_algorithmics AND high_math -> eligible_ai  (pass 1)",
+      "[C2] high_programming AND good_average -> eligible_se  (pass 1)",
+      "[C3] high_networks AND good_average -> eligible_cyber  (pass 1)",
+      "[C5] eligible_ai AND strong_problem_solving -> recommended_ai  (pass 1)",
+      "[C6] eligible_se AND interests_se -> recommended_se  (pass 1)",
+      "[C8] eligible_cyber AND interests_cyber -> recommended_cyber  (pass 1)"
+    ],
+    "explanations": {
+      "recommended_ai": [
+        "recommended_ai   [rule C5: eligible_ai AND strong_problem_solving -> recommended_ai]",
+        "    eligible_ai   [rule C1: high_algorithmics AND high_math -> eligible_ai]",
+        "        high_algorithmics   [FACT from the student profile]",
+        "        high_math   [FACT from the student profile]",
+        "    strong_problem_solving   [FACT from the student profile]"
+      ],
+      "recommended_se": [
+        "recommended_se   [rule C6: eligible_se AND interests_se -> recommended_se]",
+        "    eligible_se   [rule C2: high_programming AND good_average -> eligible_se]",
+        "        high_programming   [FACT from the student profile]",
+        "        good_average   [FACT from the student profile]",
+        "    interests_se   [FACT from the student profile]"
+      ],
+      "recommended_cyber": [
+        "recommended_cyber   [rule C8: eligible_cyber AND interests_cyber -> recommended_cyber]",
+        "    eligible_cyber   [rule C3: high_networks AND good_average -> eligible_cyber]",
+        "        high_networks   [FACT from the student profile]",
+        "        good_average   [FACT from the student profile]",
+        "    interests_cyber   [FACT from the student profile]"
+      ]
+    }
+  }
+}
